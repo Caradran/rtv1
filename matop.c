@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:19:29 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/21 04:42:16 by esuits           ###   ########.fr       */
+/*   Updated: 2018/01/25 19:00:20 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,6 @@ void	add_mat(t_mat *a, t_mat *b)
 			a->mat[x][y] += b->mat[x][y];
 }
 
-void	sub_mat(t_mat *a, t_mat *b)
-{
-	int		x;
-	int		y;
-
-	if (a->i != b->i || a->j != b->j)
-		return ;
-	x = -1;
-	while (++x < a->i && (y = -1))
-		while (++y < a->j)
-			a->mat[x][y] -= b->mat[x][y];
-}
-
 t_mat	*mult_mat(t_mat a, t_mat b)
 {
 	int		x;
@@ -61,6 +48,7 @@ t_mat	*mult_mat(t_mat a, t_mat b)
 	int		k;
 	t_mat	*res;
 
+	res = NULL;
 	if (a.j != b.i)
 		return (NULL);
 	if (!(init_mat(res, a.i, b.j)))
@@ -82,4 +70,14 @@ void	scale_mat(double a, t_mat *res)
 	while (++x < res->i && (y = -1))
 		while (++y < res->j)
 			res->mat[x][y] *= a;
+}
+
+t_vect	vect_dot(t_vect u, t_vect v)
+{
+	t_vect w;
+
+	w.x = u.x * v.x;
+	w.y = u.y * v.y;
+	w.z = u.z * v.z;
+	return (w);
 }
