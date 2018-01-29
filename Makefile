@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile_new                                       :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/01/28 14:35:39 by mbeilles         ###   ########.fr        #
+#    Updated: 2018/01/28 23:22:55 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ SRC = main.c																\
 	  vect.c																\
 
 INC = libft.h																\
-	  rt.h																	\
+	  rtv1.h																\
 
 #==============================================================================#
 #                                    Vpaths                                    #
@@ -140,7 +140,7 @@ CLEANING_BINS = $(HD)$(OK)$(PROJECT_COLOR)"Binary cleaned\n"$(NRM)
 #                                    Rules                                     #
 #==============================================================================#
 
-$(NAME): $(SRC_O) | $(INC)
+$(NAME): $(SRC_O) | $(INC) ./Makefile
 	@if [ $(INSTALL_BREW) == 1 ]; then $(BREW_INSTALL_CMD) fi;
 	@if [ $(INSTALL_SDL) == 1 ]; then $(SDL_INSTALL_CMD) fi;
 	@$(eval INSTRUCTION := all)
@@ -171,7 +171,7 @@ fclean:
 	@-rm -f $(NAME)
 	@printf $(CLEANING_BINS)
 
-install_dependencies: install_brew install_sdl install_xml
+install_dependencies: install_brew install_sdl
 	@printf $(SUCCESS_HD)$(SUCCESS_COLOR)"Instalation complete!\n"
 
 install_sdl:
