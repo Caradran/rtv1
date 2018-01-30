@@ -6,14 +6,15 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:13:04 by esuits            #+#    #+#             */
-/*   Updated: 2018/01/28 09:57:09 by esuits           ###   ########.fr       */
+/*   Updated: 2018/01/30 18:45:53 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATRICE_H
 # define MATRICE_H
 
-#include "formes.h"
+# include <SDL.h>
+# include "formes.h"
 
 typedef struct	s_mat
 {
@@ -91,12 +92,8 @@ typedef struct	s_env
 {
 	t_cam		cam;
 	void		*mlx;
-	void		*win;
-	void		*pimg;
-	int			*simg;
-	int			bpp;
-	int			s_l;
-	int			endian;
+	SDL_Window	*win;
+	SDL_Surface	*surface;
 	t_formes	*formes;
 	t_lights	*lights;
 }				t_env;

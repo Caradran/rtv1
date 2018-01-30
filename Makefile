@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/01/28 23:22:55 by mbeilles         ###   ########.fr        #
+#    Updated: 2018/01/30 19:01:26 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,8 +59,8 @@ INSTALL_XML = 0
 #                                  Commands                                    #
 #==============================================================================#
 
-BREW_INSTALL_CMD = if [ -f $(HOME)/.brew ] printf $(HD)"Installing Brew\n"$(NRM) \
-				   && curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh ;\
+BREW_INSTALL_CMD = if [ -f $(HOME)/.brew ]; then printf $(HD)"Installing Brew\n"$(NRM) \
+				   && curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh ; fi;\
 
 SDL_INSTALL_CMD = printf $(HD)"Installing SDL2\n"$(NRM) \
 				  && brew install sdl2 \
@@ -78,6 +78,7 @@ DEP = -L $(PATH_LIB) -lft $(SDL_LIB_PATH)									\
 SRC = main.c																\
 	  cam.c																	\
 	  formes.c																\
+	  light.c																\
 	  matop.c																\
 	  plan.c																\
 	  ray.c																	\

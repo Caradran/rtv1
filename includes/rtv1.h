@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:33:28 by esuits            #+#    #+#             */
-/*   Updated: 2018/01/28 17:51:12 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/01/30 18:59:09 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@
 # define W_INFO(str)		W_INFO_HD C_LGR str C_LGR
 # define W_WARN(str)		W_WARN_HD C_LGR str C_LGR
 
-# define W_OK				C_LGR " [" C_GRE "" C_LGR "]\n"
+//# define W_OK				C_LGR " [" C_GRE "" C_LGR "]\n"
 
 /*
 ** =============================================================================
