@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:12:47 by esuits            #+#    #+#             */
-/*   Updated: 2018/01/28 05:03:40 by esuits           ###   ########.fr       */
+/*   Updated: 2018/01/31 00:12:10 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,26 @@ double	hit_plan(t_ray ray, t_plan plan)
 	}
 }
 
-t_col	intersec_plan(t_ray ray, t_plan plan)
+t_col	intersec_plan(t_ray ray, t_plan plan, t_env env)
 {
-	double	dist;
 	t_vect	norm;
+	double	lbrt;
 	t_col	fond;
+	t_col	col;
 
 	fond = init_col(0, 0, 0, 0);
-	dist = hit_plan(ray, plan);
-	if (dist >= 0)
+	if ((hit_plan(ray, plan)) >= 0)
 	{
 		norm = plan.nrml;
-		return (interpolcol(fond, plan.col, (1.5 - dist) / 1.5));
+		lbrt = lambert(ray, norm, env);
+		col = interpolcol(plan.col, fond,
+				-(vect_mult_scale(vect_scale(ray.dist,norm), 
+						vect_scale(ray.dist, ray.dir)))/ray.dist);
+		col = interpolcol(interpolcol(fond, multcol(col, env.lights->lgt.col),
+			lbrt), col, 0.5);
+//		col = interpolcol(col, addcol(env.lights->lgt.col, col),
+//				phong(ray, plan.col, norm, env.lights));
+		return (col);
 	}
 	return (fond);
 }

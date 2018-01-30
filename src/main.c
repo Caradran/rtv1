@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:23:53 by esuits            #+#    #+#             */
-/*   Updated: 2018/01/30 20:08:40 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/01/30 23:16:36 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	send_rays(t_env *env)
 		y = ~0U;
 		while (++y < env->surface->h)
 		{
-			tmpx = (double)(x - env->surface->h / 2.0) / env->surface->h;
+			tmpx = (double)(x - env->surface->w / 2.0) / env->surface->h;
 			tmpy = (double)(y - env->surface->h / 2.0) / env->surface->h;
 			ray = init_ray(vect_add(vect_add(vect_scale(tmpx, env->cam.dwn),
 						vect_scale(tmpy, env->cam.rgt)), env->cam.org), env->cam.frt);
