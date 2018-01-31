@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 03:32:32 by esuits            #+#    #+#             */
-/*   Updated: 2018/01/30 22:59:52 by esuits           ###   ########.fr       */
+/*   Updated: 2018/01/31 04:25:37 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_col	send_ray(t_ray *ray, t_env *env)
 	}
 	ptr = env->formes;
 	if (j == -1)
-		return (init_col(0, 0, 0, 0));
+		return (BACK_COLOR);
 	while (j--)
 		ptr = ptr->next;
 	if (ptr->type == 1)

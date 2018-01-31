@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 18:23:58 by esuits            #+#    #+#             */
-/*   Updated: 2018/01/30 23:44:27 by esuits           ###   ########.fr       */
+/*   Updated: 2018/01/31 09:04:03 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_col	intersec_sphere(t_ray ray, t_sph sph, t_env env)
 	double	lbrt;
 	t_col	col;
 
-	fond = init_col(0, 0, 0, 0);
+	fond = BACK_COLOR;
 	ray.dist = hit_sphere(ray, sph);
 	if (ray.dist >= 0)
 	{
@@ -84,8 +84,8 @@ t_col	intersec_sphere(t_ray ray, t_sph sph, t_env env)
 			vect_sub(vect_add(ray.org,
 						vect_scale(ray.dist, ray.dir)), sph.ctr));
 		lbrt = lambert(ray, norm, env);
-		col = interpolcol(init_col(0,0,0,0), sph.col, (-vect_mult_scale(norm, ray.dir)));
-		col = interpolcol(interpolcol(fond, multcol(col, env.lights->lgt.col), lbrt), col, 0.5);
+		col = interpolcol(fond, sph.col, (-vect_mult_scale(norm, ray.dir)));
+		col = interpolcol(interpolcol(fond, multcol(col, env.lights->lgt.col), lbrt), col, 1.0 - lbrt);
 		col = interpolcol(col, addcol(env.lights->lgt.col, col),
 				phong(ray, sph.col, norm, env.lights));
 		return (col);

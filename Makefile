@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/01/30 19:01:26 by mbeilles         ###   ########.fr        #
+#    Updated: 2018/01/31 05:39:28 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,10 @@ NICK = "RT1"
 
 CC = clang
 
-FLAGS = $(HIDDEN_FLAGS) $(NAZI_FLAG) -fsanitize=address -g3 -O0
+FLAGS = $(HIDDEN_FLAGS) $(NAZI_FLAG) $(FAST_FLAG) $(SLOW_FLAG)
 CFLAG = $(FLAGS) -I$(PATH_INC) -I$(PATH_LIB)$(PATH_INC) $(SDL_HDR_PATH)
+FAST_FLAG = -Ofast -march=native -flto
+SLOW_FLAG = #-fsanitize=address -g3 -O0
 
 HIDDEN_FLAGS = -v
 NAZI_FLAG = -Weverything
@@ -85,6 +87,7 @@ SRC = main.c																\
 	  sp_mat.c																\
 	  sphere.c																\
 	  vect.c																\
+	  raycast_layer.c														\
 
 INC = libft.h																\
 	  rtv1.h																\
@@ -94,6 +97,7 @@ INC = libft.h																\
 #==============================================================================#
 
 vpath %.c $(PATH_SRC)
+vpath %.c $(PATH_SRC)/display
 vpath %.o $(PATH_OBJ)
 vpath %.h $(PATH_INC)
 vpath %.h $(PATH_LIB)$(PATH_INC)

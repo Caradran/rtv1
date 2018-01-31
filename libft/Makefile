@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:32 by mbeilles          #+#    #+#              #
-#    Updated: 2017/12/16 10:00:56 by mbeilles         ###   ########.fr        #
+#    Updated: 2018/01/31 05:39:22 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,10 @@ NICK = "LFT"
 
 CC = clang
 
-FLAGS = $(HIDDEN_FLAGS)
-CFLAG = -O3 -I$(PATH_INC) -I$(PATH_LIB)$(PATH_INC) \
+FLAGS = $(HIDDEN_FLAGS) $(FAST_FLAG) $(SLOW_FLAG)
+CFLAG = -O3 -I$(PATH_INC) -I$(PATH_LIB)$(PATH_INC)
+FAST_FLAG = -Ofast -march=native -flto
+SLOW_FLAG = #-fsanitize=address -g3 -O0
 
 HIDDEN_FLAGS = -v -Weverything \
 

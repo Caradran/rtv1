@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:13:04 by esuits            #+#    #+#             */
-/*   Updated: 2018/01/30 18:45:53 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/01/31 04:10:32 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct	s_env
 	SDL_Surface	*surface;
 	t_formes	*formes;
 	t_lights	*lights;
+	uint32_t	rpp;
 }				t_env;
 
 void			add_mat(t_mat *a, t_mat *b);
@@ -137,7 +138,7 @@ t_lights		*init_lights(t_env *env);
 t_plan			init_plan(t_vect nrml, double dst, t_col col);
 t_sph			init_sph(t_vect ctr, double r, t_col col);
 
-t_col			intersec_plan(t_ray ray, t_plan plan);
+t_col			intersec_plan(t_ray ray, t_plan plan, t_env env);
 t_col			intersec_sphere(t_ray ray, t_sph sph, t_env env);
 
 double			hit_sphere(t_ray ray, t_sph sph);

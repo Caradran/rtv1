@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:12:47 by esuits            #+#    #+#             */
-/*   Updated: 2018/01/31 00:12:10 by esuits           ###   ########.fr       */
+/*   Updated: 2018/01/31 10:00:01 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,16 @@ t_col	intersec_plan(t_ray ray, t_plan plan, t_env env)
 	t_col	fond;
 	t_col	col;
 
-	fond = init_col(0, 0, 0, 0);
+	fond = BACK_COLOR;
 	if ((hit_plan(ray, plan)) >= 0)
 	{
 		norm = plan.nrml;
 		lbrt = lambert(ray, norm, env);
-		col = interpolcol(plan.col, fond,
-				-(vect_mult_scale(vect_scale(ray.dist,norm), 
-						vect_scale(ray.dist, ray.dir)))/ray.dist);
-		col = interpolcol(interpolcol(fond, multcol(col, env.lights->lgt.col),
-			lbrt), col, 0.5);
-//		col = interpolcol(col, addcol(env.lights->lgt.col, col),
-//				phong(ray, plan.col, norm, env.lights));
+		col = interpolcol(fond, plan.col, (vect_mult_scale(vect_scale(ray.dist,norm)
+						, vect_scale(ray.dist, vect_scale(norme_vect(ray.dir), ray.dir )))) / ray.dist);
+		/*col = interpolcol(interpolcol(fond, multcol(col, env.lights->lgt.col), lbrt), col, 1.0 - lbrt);*/
+		/*col = interpolcol(col, addcol(env.lights->lgt.col, col),*/
+				/*phong(ray, plan.col, norm, env.lights));*/
 		return (col);
 	}
 	return (fond);
