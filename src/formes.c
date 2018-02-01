@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 02:21:45 by esuits            #+#    #+#             */
-/*   Updated: 2018/01/31 09:54:20 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/01 15:49:03 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_lights		*init_lights(t_env *env)
 	(void)env;
 	if (!(lights = malloc(sizeof(t_lights))))
 		return (NULL);
-	lights->lgt = init_lgt(init_col(1, 1, 1, 1), init_vect(0, 0, 0));
+	lights->lgt = init_lgt(init_col(1, 1, 1, 1), init_vect(10, 0, 0));
 	lights->next = NULL;
 	return (lights);
 }
