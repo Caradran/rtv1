@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 18:23:58 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/01 18:56:39 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/01 22:09:24 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,35 @@ double	phong(t_ray ray, t_col col, t_vect norm, t_lights *lights)
 	phongterm = vect_mult_scale(phongdir, ray.dir);
 	if (phongterm < 0.0)
 		phongterm = 0.0;
-	phongterm = (col.s * pow(phongterm, 50.0) * lgt.col.s);
+	phongterm = (col.s * pow(phongterm, 500.0) * lgt.col.s);
 	return (phongterm);
 }
 
-static double lambert(t_ray ray, t_vect norm, t_env env)
+static double lambert(t_ray ray, t_vect norm, t_lights *lights)
 {
-	return(vect_mult_scale(normal_vect(vect_sub(env.lights->lgt.vect,
-				vect_add(ray.org, vect_scale(ray.dist, ray.dir)))), norm));
+	double ret;
+//	double i;
+//	double val;
+
+//	i = 0;
+	ret = 1;
+//	while (lights)
+//	{
+		ret *= vect_mult_scale(normal_vect(vect_sub(lights->lgt.vect,
+				vect_add(ray.org, vect_scale(ray.dist, ray.dir)))), norm);
+		lights = lights->next;
+//		i++;
+//	}
+//	ret /= i;
+	return (ret);
 }
 
 t_col	intersec_sphere(t_ray ray, t_sph sph, t_env env)
 {
 	t_vect	norm;
 	t_col	fond;
-	double	lbrt;
 	t_col	col;
+	double	lmbrt;
 
 	fond = init_col(0,0,0,0);
 	ray.dist = hit_sphere(ray, sph);
@@ -83,12 +96,18 @@ t_col	intersec_sphere(t_ray ray, t_sph sph, t_env env)
 		norm = normal_vect(
 			vect_sub(vect_add(ray.org,
 						vect_scale(ray.dist, ray.dir)), sph.ctr));
-		lbrt = lambert(ray, norm, env);
-		col = interpolcol(fond, sph.col, (-vect_mult_scale(norm, ray.dir)));
-		col = interpolcol(interpolcol(fond, multcol(col, env.lights->lgt.col),
-					lbrt), multcol(col, env.lights->lgt.col), 0.5);
-		col = interpolcol(col, interpolcol(env.lights->lgt.col, col, 0.5),
+		col = fond;
+		while (env.lights)
+		{
+			lmbrt = lambert(ray, norm, env.lights);
+			if (lmbrt < 0)
+				lmbrt = 0;
+			col = addcol(interpolcol(fond, multcol(sph.col, env.lights->lgt.col),
+					lmbrt / 3.0), col);
+			col = interpolcol(col, addcol(env.lights->lgt.col, col),
 				phong(ray, sph.col, norm, env.lights));
+			env.lights = env.lights->next;
+		}
 		return (col);
 	}
 	return (fond);

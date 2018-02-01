@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 06:54:14 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/01 18:37:17 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/01 21:40:22 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ t_col	addcol(t_col col1, t_col col2)
 {
 	t_col col;
 
-	col.r = ((1 + col1.r) * col2.r);
+	col.r = col1.r + col2.r;
 	if (col.r > 1)
 		col.r = 1;
-	col.g = ((1 + col1.g) * col2.g);
+	col.g = col1.g + col2.g;
 	if (col.g > 1)
 		col.g = 1;
-	col.b = ((1 + col1.b) * col2.b);
+	col.b = col1.b + col2.b;
 	if (col.b > 1)
 		col.b = 1;
 	return (col);

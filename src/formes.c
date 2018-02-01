@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 02:21:45 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/01 18:58:44 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/01 22:11:22 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_formes		*init_formes(t_env *env)
 	if (!(formes->next = malloc(sizeof(t_formes))))
 		return (NULL);
 	formes->next->type = 1;
-	formes->next->sph = init_sph(init_vect(1, -0.1, -0), 0.3,
+	formes->next->sph = init_sph(init_vect(1.5, -0.1, -0), 0.3,
 			init_col(1, 0.75, 0.5, 1));
 	if (!(formes->next->next = malloc(sizeof(t_formes))))
 		return (NULL);
@@ -47,7 +47,14 @@ t_lights		*init_lights(t_env *env)
 	(void)env;
 	if (!(lights = malloc(sizeof(t_lights))))
 		return (NULL);
-	lights->lgt = init_lgt(init_col(0.7, 0.5, 0, 1), init_vect(1, 5, 1));
-	lights->next = NULL;
+	lights->lgt = init_lgt(init_col(1, 1, 1, 1), init_vect(2, 0, 0));
+//	lights->next = NULL;
+	if (!(lights->next = malloc(sizeof(t_lights))))
+		return (NULL);
+	lights->next->lgt = init_lgt(init_col(1, 1, 1, 1), init_vect(15, 0, 0));
+	if (!(lights->next->next = malloc(sizeof(t_lights))))
+		return (NULL);
+	lights->next->next->lgt = init_lgt(init_col(1, 1, 1, 1), init_vect(1, -1, 0.1));
+	lights->next->next->next = NULL;
 	return (lights);
 }

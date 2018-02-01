@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:12:47 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/01 18:06:20 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/01 22:11:08 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,20 @@ t_col	intersec_plan(t_ray ray, t_plan plan, t_env env)
 	if ((hit_plan(ray, plan)) >= 0.0)
 	{
 		norm = plan.nrml;
-//		printf("%lf %lf %lf\n", norm.x, norm.y, norm.z);
-//		printf("%f\n", lambert(ray, norm, env));
-		labrt = -lambert(ray, norm, env);
-		if (labrt < 0)
-			return (fond);
-//		printf("%lf\n", labrt);
-		col = fond;
-		col = interpolcol(interpolcol(fond, multcol(plan.col, env.lights->lgt.col),
-					labrt), multcol(col, env.lights->lgt.col), 0.5);
-		/*col = interpolcol(col, addcol(env.lights->lgt.col, col),*/
-				/*phong(ray, plan.col, norm, env.lights));*/
+		col =fond;
+		while (env.lights)
+		{
+			labrt = -lambert(ray, norm, env);
+			if (labrt >= 0)
+			{
+				col = addcol(interpolcol(fond,
+						multcol(plan.col, env.lights->lgt.col),
+					labrt / 3), col);
+//				col = interpolcol(col, addcol(env.lights->lgt.col, col),
+//					phong(ray, plan.col, norm, env.lights));
+			}
+			env.lights = env.lights->next;
+		}
 		return (col);
 	}
 	return (fond);
