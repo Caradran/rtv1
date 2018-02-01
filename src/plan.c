@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:12:47 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/01 15:49:05 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/01 18:06:20 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,32 @@ double	hit_plan(t_ray ray, t_plan plan)
 	}
 }
 
+static double lambert(t_ray ray, t_vect norm, t_env env)
+{
+	return(vect_mult_scale(normal_vect(vect_sub(env.lights->lgt.vect,
+				vect_add(ray.org, vect_scale(ray.dist, ray.dir)))), norm));
+}
+
 t_col	intersec_plan(t_ray ray, t_plan plan, t_env env)
 {
 	t_vect	norm;
-	double	lbrt;
+	double	labrt;
 	t_col	fond;
 	t_col	col;
 
 	fond = BACK_COLOR;
-	if ((hit_plan(ray, plan)) >= 0)
+	if ((hit_plan(ray, plan)) >= 0.0)
 	{
 		norm = plan.nrml;
-		lbrt = lambert(ray, norm, env);
-		col = interpolcol(plan.col, fond, ray.dist / 20);
-//		col = interpolcol(interpolcol(fond,
-//					multcol(col, env.lights->lgt.col), lbrt), col, 1.0 - lbrt);
+//		printf("%lf %lf %lf\n", norm.x, norm.y, norm.z);
+//		printf("%f\n", lambert(ray, norm, env));
+		labrt = -lambert(ray, norm, env);
+		if (labrt < 0)
+			return (fond);
+//		printf("%lf\n", labrt);
+		col = fond;
+		col = interpolcol(interpolcol(fond, multcol(plan.col, env.lights->lgt.col),
+					labrt), multcol(col, env.lights->lgt.col), 0.5);
 		/*col = interpolcol(col, addcol(env.lights->lgt.col, col),*/
 				/*phong(ray, plan.col, norm, env.lights));*/
 		return (col);

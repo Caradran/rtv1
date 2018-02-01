@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 03:32:32 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/01 11:39:30 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/01 16:58:36 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_ray	init_ray(t_vect org, t_vect dir)
 
 	ray.org = org;
 	ray.dir = normal_vect(dir);
-	ray.dist = -1;
+	ray.dist = -1.0;
 	return (ray);
 }
 
@@ -41,8 +41,8 @@ t_vect	normal_vect(t_vect u)
 	double n;
 
 	n = norme_vect(u);
-	if (n <= 0)
-		return (init_vect(0, 0, 0));
+	if (n <= 0.0)
+		return (init_vect(0.0, 0.0, 0.0));
 	u.x = u.x / n;
 	u.y = u.y / n;
 	u.z = u.z / n;
@@ -71,7 +71,7 @@ t_col	send_ray(t_ray *ray, t_env *env)
 				ray->dist = dist;
 		else if (((ptr->type == 2) && (dist = hit_plan(*ray, ptr->plan)) >= 0)
 				&& ((ray->dist > dist || ray->dist == -1) && dist >= 0
-					&& dist < 20) && ((j = i) || 1))
+					&& dist < R_THRESHOLD) && ((j = i) || 1))
 			ray->dist = dist;
 		ptr = ptr->next;
 		i++;

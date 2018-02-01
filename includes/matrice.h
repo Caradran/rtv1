@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:13:04 by esuits            #+#    #+#             */
-/*   Updated: 2018/01/31 04:10:32 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/01 17:26:20 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ t_sph			init_sph(t_vect ctr, double r, t_col col);
 t_col			intersec_plan(t_ray ray, t_plan plan, t_env env);
 t_col			intersec_sphere(t_ray ray, t_sph sph, t_env env);
 
+double			phong(t_ray ray, t_col col, t_vect norm, t_lights *lights);
 double			hit_sphere(t_ray ray, t_sph sph);
 double			hit_plan(t_ray ray, t_plan plan);
 #endif

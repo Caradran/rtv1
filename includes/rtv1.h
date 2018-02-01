@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:33:28 by esuits            #+#    #+#             */
-/*   Updated: 2018/01/31 04:26:10 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/01 18:51:17 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,11 @@
 # define WIDTH				1920
 # define HEIGHT				1080
 # define FOV				90
+# define R_THRESHOLD		50.0
 # define ROTATE_ANGLE		((float)FOV / (float)WIDTH * 16.0)
 # define MOVE_DISTANCE		0.5
 
-# define BACK_COLOR			init_col(0.1, 0.1, 0.1, 0)
+# define BACK_COLOR			init_col(0.0, 0.0, 0.0, 0)
 
 /*
 ** =============================================================================
