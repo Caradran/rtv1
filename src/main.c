@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:23:53 by esuits            #+#    #+#             */
-/*   Updated: 2018/01/31 09:28:47 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/01 15:09:38 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		init_env(t_env *env)
 	env->cam = init_cam(init_vect(0, 0, 0), init_vect(1, 0, 0));
 	env->formes = init_formes(env);
 	env->lights = init_lights(env);
-	env->rpp = 2;
+	env->rpp = 1;
 	return (1);
 }
 

@@ -6,14 +6,14 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 20:49:06 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/01/31 09:30:47 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/01 15:49:09 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 #include "matrice.h"
 
-#define RPP 8/*1U << 0*/
+#define RPP 8 /*1U << 0*/
 
 void				set_pixels(SDL_Surface *s, uint32_t x, uint32_t y, int32_t rpp, t_col color)
 {
