@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:13:04 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/03 18:57:58 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/03 19:34:34 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void			sub_mat(t_mat *a, t_mat *b);
 t_mat			*mult_mat(t_mat a, t_mat b);
 void			scale_mat(double a, t_mat *b);
 
-t_mat			rot_mat(t_vect *v, double theta);
+t_mat			rot_mat(t_vect v, double theta);
 t_mat			id_mat(void);
 
 t_vect			normal_vect(t_vect u);
