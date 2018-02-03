@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:13:04 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/01 17:26:20 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/03 18:57:58 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,13 @@ typedef struct	s_plan
 	t_col	col;
 }				t_plan;
 
+typedef struct	s_cyl
+{
+	t_vect	nrml;
+	double	dst;
+	t_col	col;
+}				t_cyl;
+
 typedef struct	s_formes
 {
 	struct s_formes		*next;
@@ -86,6 +93,7 @@ typedef struct	s_lights
 {
 	t_lgt			lgt;
 	struct s_lights	*next;
+	double			nblgt;
 }				t_lights;
 
 typedef struct	s_env
@@ -93,6 +101,7 @@ typedef struct	s_env
 	t_cam		cam;
 	void		*mlx;
 	SDL_Window	*win;
+	double		i;
 	SDL_Surface	*surface;
 	t_formes	*formes;
 	t_lights	*lights;
@@ -118,6 +127,7 @@ t_vect			vect_add(t_vect u, t_vect v);
 t_vect			vect_sub(t_vect u, t_vect v);
 double			norme_vect(t_vect u);
 t_vect			normal_vect(t_vect u);
+t_vect	rot_vect(t_vect v, double theta, t_vect axis);
 
 t_cam			init_cam(t_vect org, t_vect look_at);
 t_ray			init_ray(t_vect org, t_vect dir);
