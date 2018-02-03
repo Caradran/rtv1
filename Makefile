@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/01 17:22:25 by esuits           ###   ########.fr        #
+#    Updated: 2018/02/03 21:09:30 by esuits           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,6 +88,7 @@ SRC = main.c																\
 	  sphere.c																\
 	  vect.c																\
 	  raycast_layer.c														\
+	  print_obj.c															\
 
 INC = libft.h																\
 	  rtv1.h																\

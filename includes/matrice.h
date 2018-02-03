@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:13:04 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/03 19:34:34 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/03 21:08:03 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,9 @@ typedef struct	s_env
 	uint32_t	rpp;
 }				t_env;
 
+void			print_objs(t_formes *formes);
+
+
 void			add_mat(t_mat *a, t_mat *b);
 void			sub_mat(t_mat *a, t_mat *b);
 t_mat			*mult_mat(t_mat a, t_mat b);
@@ -127,7 +130,7 @@ t_vect			vect_add(t_vect u, t_vect v);
 t_vect			vect_sub(t_vect u, t_vect v);
 double			norme_vect(t_vect u);
 t_vect			normal_vect(t_vect u);
-t_vect	rot_vect(t_vect v, double theta, t_vect axis);
+t_vect			rot_vect(t_vect v, double theta, t_vect axis);
 
 t_cam			init_cam(t_vect org, t_vect look_at);
 t_ray			init_ray(t_vect org, t_vect dir);
