@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:29:31 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/01/31 11:49:01 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/05 00:53:46 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,19 @@ static t_token			create_token(char *str, uint32_t len, t_lexer_state st)
 	return ((t_token){str, len, st});
 }
 
-t_token					get_next_token(t_token_info i)
+t_token					get_next_token(t_token_info *i)
 {
 	t_lexer_state		state;
 	t_lexer_state		swap;;
 	uint32_t			len;
 
 	len = 0;
-	while ((state = get_next_lex(i.str[i.index++]) == i.last_state))
+	if (i->index >= i->len)
+		return (LEXER_NULL_TOKEN);
+	while ((state = get_next_lex(i->buffer[i->index++]) == i->last_state))
 		len++;
 	swap = state;
-	state = i.last_state;
-	i.last_state = swap;
-	return (create_token(i.str + i.index, len, state));
+	state = i->last_state;
+	i->last_state = swap;
+	return (create_token(i->buffer + i->index, len, state));
 }

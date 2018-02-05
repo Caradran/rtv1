@@ -6,13 +6,13 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:05:13 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/01/31 11:28:28 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/05 00:53:14 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_lexer_pattern				*get_lexing_patterns(void)
+static t_lexer_pattern		*get_lexing_patterns(void)
 {
 	static t_lexer_pattern	p[LEXER_STATE_MAX] = {
 		(t_lexer_pattern){" ", 1, LEXER_STATE_SEPARATOR}
@@ -40,7 +40,7 @@ t_lexer_pattern				*get_lexing_patterns(void)
 	return (p);
 }
 
-t_lexer_state				get_next_lex(char str)
+t_lexer_state				get_next_lex(char c)
 {
 	t_lexer_pattern			*p;
 	uint32_t				i;

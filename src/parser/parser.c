@@ -6,27 +6,47 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:49:14 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/01/31 12:08:34 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/05 00:52:09 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-
-
-void				parse_sphere(char *sphere, t_token t, t_token_info i)
+static t_parser_pattern		*get_parser_patterns(void)
 {
+	static t_parser_pattern	p[PARSER_PATTERN_MAX] = {
+		(t_parser_pattern){"sphere", 6, &parse_sphere}
+		,(t_parser_pattern){"plane", 5, &parse_plane}
+		,(t_parser_pattern){"cone", 4, &parse_cone}
+		,(t_parser_pattern){"cylinder", 9, &parse_cylinder}
+		,(t_parser_pattern){"cam", 3, &parse_cam}
+		,(t_parser_pattern){"light", 5, &parse_light}
+	};
+
+	return (p);
 }
 
-void				parse_file(char *path, t_env *env)
+uint32_t					parse_file(char *path, t_env *env)
 {
-	t_token_info	i;
-	t_token			t;
+	t_token_info			i;
+	t_token					t;
+	uint32_t				c;
+	t_parser_pattern		*p;
 
 	i = create_info_token(path);
-	while (t = get_next_token(i))
+	p = get_parser_patterns();
+	while (42)
 	{
-		if (ft_strnequ(t.str, ))
+		t = get_next_token(&i);
+		ft_memcmp(&t, &LEXER_NULL_TOKEN, sizeof(t_token));
+		c = ~0U;
+		if (t.state == LEXER_STATE_OBJECT
+				&& i.last_state == LEXER_STATE_SEPARATOR)
+			while (++c < PARSER_PATTERN_MAX)
+				if (ft_strnequ(p[c].str, t.str, p[c].len))
+					p[c].func(t, &i, env);
+		if (t.state != LEXER_STATE_SEPARATOR)
+			return (PARSER_ERROR_SYNTAX);
 	}
-
+	return (PARSER_VALID);
 }

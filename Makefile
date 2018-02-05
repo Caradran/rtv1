@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/03 21:09:30 by esuits           ###   ########.fr        #
+#    Updated: 2018/02/04 23:53:33 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,9 +89,16 @@ SRC = main.c																\
 	  vect.c																\
 	  raycast_layer.c														\
 	  print_obj.c															\
+			parser.c														\
+			lexer.c															\
+			tokenizer.c														\
+			parse_color.c													\
+			parse_sphere.c													\
+			parse_vector.c													\
 
 INC = libft.h																\
 	  rtv1.h																\
+
 
 #==============================================================================#
 #                                    Vpaths                                    #
@@ -99,6 +106,7 @@ INC = libft.h																\
 
 vpath %.c $(PATH_SRC)
 vpath %.c $(PATH_SRC)/display
+vpath %.c $(PATH_SRC)/parser
 vpath %.o $(PATH_OBJ)
 vpath %.h $(PATH_INC)
 vpath %.h $(PATH_LIB)$(PATH_INC)
