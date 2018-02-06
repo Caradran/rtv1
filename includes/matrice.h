@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:13:04 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/05 16:03:25 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/06 22:49:54 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct	s_formes
 	int					type;
 	t_sph				sph;
 	t_plan				plan;
+	t_cone				cone;
 }				t_formes;
 
 typedef struct	s_lights
@@ -151,11 +152,17 @@ t_formes		*init_formes(t_env *env);
 t_lights		*init_lights(t_env *env);
 t_plan			init_plan(t_vect nrml, double dst, t_col col);
 t_sph			init_sph(t_vect ctr, double r, t_col col);
+t_cone			init_cone(t_vect org, t_vect dir, double theta, t_col col);
 
 t_col			intersec_plan(t_ray ray, t_plan plan, t_env env);
 t_col			intersec_sphere(t_ray ray, t_sph sph, t_env env);
+t_col			intersec_cone(t_ray ray, t_cone cone, t_env env);
 
+double			lambert(t_ray ray, t_vect norm, t_lights *lights);
 double			phong(t_ray ray, t_col col, t_vect norm, t_lights *lights);
+
+int				hit_obj(t_lgt lgt, t_ray ray, t_formes *formes);
+double			hit_cone(t_ray ray, t_cone cone);
 double			hit_sphere(t_ray ray, t_sph sph);
 double			hit_plan(t_ray ray, t_plan plan);
 #endif
