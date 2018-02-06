@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:05:13 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/05 00:53:14 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/06 13:11:35 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 static t_lexer_pattern		*get_lexing_patterns(void)
 {
-	static t_lexer_pattern	p[LEXER_STATE_MAX] = {
+	static t_lexer_pattern	p[20] = {
 		(t_lexer_pattern){" ", 1, LEXER_STATE_SEPARATOR}
 	,(t_lexer_pattern){"\n", 1, LEXER_STATE_SEPARATOR}
 	,(t_lexer_pattern){"\t", 1, LEXER_STATE_SEPARATOR}
 	,(t_lexer_pattern){",", 1, LEXER_STATE_SEPARATOR}
 	,(t_lexer_pattern){";", 1, LEXER_STATE_SEPARATOR}
-	,(t_lexer_pattern){"{", 1, LEXER_STATE_SCOPE_UP}
-	,(t_lexer_pattern){"}", 1, LEXER_STATE_SCOPE_DOWN}
-	,(t_lexer_pattern){"\"", 1, LEXER_STATE_PARAMETER_STRING}
+	,(t_lexer_pattern){"(", 1, LEXER_STATE_SCOPE_UP}
+	,(t_lexer_pattern){")", 1, LEXER_STATE_SCOPE_DOWN}
 	,(t_lexer_pattern){"0", 1, LEXER_STATE_PARAMETER_NUMBER}
 	,(t_lexer_pattern){"1", 1, LEXER_STATE_PARAMETER_NUMBER}
 	,(t_lexer_pattern){"2", 1, LEXER_STATE_PARAMETER_NUMBER}
@@ -47,9 +46,9 @@ t_lexer_state				get_next_lex(char c)
 
 	p = get_lexing_patterns();
 	i = ~0U;
-	while (++i < LEXER_STATE_MAX)
-			if (c == *(p[i].pattern))
-				return (p[i].state);
+	while (++i < 20)
+		if (c == *(p[i].pattern))
+			return (p[i].state);
 	return (LEXER_STATE_OBJECT);
 }
 

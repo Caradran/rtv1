@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:29:31 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/05 00:53:46 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/06 13:11:08 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_token_info			create_info_token(char *path)
 	char				*str;
 
 	str = ft_get_file_content(path);
-	return ((t_token_info){str, ft_strlen(str), 0, LEXER_STATE_SEPARATOR});
+	return ((t_token_info){str, ft_strlen(str), 0, LEXER_STATE_OBJECT});
 }
 
 static t_token			create_token(char *str, uint32_t len, t_lexer_state st)
@@ -28,16 +28,16 @@ static t_token			create_token(char *str, uint32_t len, t_lexer_state st)
 t_token					get_next_token(t_token_info *i)
 {
 	t_lexer_state		state;
-	t_lexer_state		swap;;
+	t_lexer_state		swap;
 	uint32_t			len;
 
-	len = 0;
-	if (i->index >= i->len)
+	if (i->index >= i->len - 1)
 		return (LEXER_NULL_TOKEN);
-	while ((state = get_next_lex(i->buffer[i->index++]) == i->last_state))
+	len = 1;
+	state = get_next_lex(i->buffer[i->index]);
+	while ((swap = get_next_lex(i->buffer[i->index + len])) == state)
 		len++;
-	swap = state;
-	state = i->last_state;
-	i->last_state = swap;
-	return (create_token(i->buffer + i->index, len, state));
+	i->index += len;
+	i->last_state = state;
+	return (create_token(i->buffer + i->index, len + 1, swap));
 }

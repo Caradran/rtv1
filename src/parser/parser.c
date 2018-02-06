@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:49:14 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/05 00:52:09 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/06 12:05:38 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,13 @@ uint32_t					parse_file(char *path, t_env *env)
 	while (42)
 	{
 		t = get_next_token(&i);
-		ft_memcmp(&t, &LEXER_NULL_TOKEN, sizeof(t_token));
+		if (t.state == LEXER_STATE_MAX)
+			return (PARSER_ERROR_SYNTAX);
 		c = ~0U;
-		if (t.state == LEXER_STATE_OBJECT
-				&& i.last_state == LEXER_STATE_SEPARATOR)
+		if (t.state == LEXER_STATE_OBJECT)
 			while (++c < PARSER_PATTERN_MAX)
 				if (ft_strnequ(p[c].str, t.str, p[c].len))
 					p[c].func(t, &i, env);
-		if (t.state != LEXER_STATE_SEPARATOR)
-			return (PARSER_ERROR_SYNTAX);
 	}
 	return (PARSER_VALID);
 }
