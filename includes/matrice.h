@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:13:04 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/03 21:08:03 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/05 16:03:25 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,13 @@ typedef struct	s_plan
 	t_col	col;
 }				t_plan;
 
-typedef struct	s_cyl
+typedef struct	s_cone
 {
-	t_vect	nrml;
-	double	dst;
+	t_vect	org;
+	t_vect	dir;
+	double	theta;
 	t_col	col;
-}				t_cyl;
+}				t_cone;
 
 typedef struct	s_formes
 {
