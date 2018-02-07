@@ -90,6 +90,7 @@ t_col	intersec_sphere(t_ray ray, t_sph sph, t_env env)
 		{
 			if (hit_obj(env.lights->lgt, ray, env.formes))
 			{
+				col = addcol(fond, col);
 				env.lights = env.lights->next;
 				continue ;
 			}

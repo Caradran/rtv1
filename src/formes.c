@@ -22,16 +22,16 @@ t_formes		*init_formes(t_env *env)
 		return (NULL);
 	formes->type = 3;
 	formes->cone = init_cone(init_vect(1, 0, 0),
-			init_vect(0.1, -1, 1), M_PI / 8.0,  init_col(1, 1, 1, 1));
+			init_vect(-1, -1, 1), M_PI/10.0,  init_col(1, 1, 1, 1));
 	if (!(formes->next = malloc(sizeof(t_formes))))
 		return (NULL);
 	formes->next->type = 3;
 	formes->next->cone = init_cone(init_vect(1, 0, 0),
-			init_vect(-0.1, 1, 1), M_PI / 8.0,  init_col(1, 1, 1, 1));
+			init_vect(-1, 1, 1), M_PI/10.0,  init_col(1, 1, 1, 1));
 	if (!(formes->next->next = malloc(sizeof(t_formes))))
 		return (NULL);
 	formes->next->next->type = 1;
-	formes->next->next->sph = init_sph(init_vect(1,0,0), 0.3, init_col(1,1,1,1));
+	formes->next->next->sph = init_sph(init_vect(1, 0, 0), 0.3, init_col(1,1,1,1));
 	if (!(formes->next->next->next = malloc(sizeof(t_formes))))
 		return (NULL);
 	formes->next->next->next->type = 1;
@@ -44,20 +44,21 @@ t_formes		*init_formes(t_env *env)
 t_lights		*init_lights(t_env *env)
 {
 	t_lights	*lights;
+	double		n = 3;
 
 	(void)env;
 	if (!(lights = malloc(sizeof(t_lights))))
 		return (NULL);
-	lights->lgt = init_lgt(init_col(0, 0, 1, 1), init_vect(0, -1, 0));
+	lights->lgt = init_lgt(init_col(0, 0, 1, 1), init_vect(0, n * -1, 0));
 //	lights->next = NULL;
 	if (!(lights->next = malloc(sizeof(t_lights))))
 		return (NULL);
-	lights->next->lgt = init_lgt(init_col(0, 0, 0, 1), init_vect(0, 0.5, 0.866));
+	lights->next->lgt = init_lgt(init_col(1, 0, 0, 1), init_vect(0, n*0.5, n*0.866));
 //	lights->next->next = NULL;
 	if (!(lights->next->next = malloc(sizeof(t_lights))))
 		return (NULL);
-	lights->next->next->lgt = init_lgt(init_col(0, 0, 0, 1),
-			init_vect(0, 0, -0));
+	lights->next->next->lgt = init_lgt(init_col(0, 1, 0, 1),
+			init_vect(0, n * 0.5, n * -0.866));
 	lights->next->next->next = NULL;
 	return (lights);
 }
@@ -70,8 +71,8 @@ int				hit_obj(t_lgt lgt, t_ray camray, t_formes *formes)
 	t_formes	*ptr;
 
 
-	dir = vect_sub(vect_add(camray.org, vect_scale(camray.dist, camray.dir))
-				, lgt.vect);
+	dir = vect_sub(vect_add(camray.org, vect_scale(camray.dist, camray.dir)), 
+	lgt.vect);
 	ray = init_ray(lgt.vect, normal_vect(dir));
 	ptr = formes;
 	while (ptr)
@@ -88,7 +89,7 @@ int				hit_obj(t_lgt lgt, t_ray camray, t_formes *formes)
 				ray.dist = dist;
 		ptr = ptr->next;
 	}
-	if (dist < (norme_vect(dir) + 0.0001))
+	if (ray.dist > (norme_vect(dir) - 0.000000001))
 		return (0);
 	return (1);
 }
