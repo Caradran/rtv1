@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/04 23:53:33 by mbeilles         ###   ########.fr        #
+#    Updated: 2018/02/09 07:48:32 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -154,7 +154,7 @@ CLEANING_BINS = $(HD)$(OK)$(PROJECT_COLOR)"Binary cleaned\n"$(NRM)
 #                                    Rules                                     #
 #==============================================================================#
 
-$(NAME): $(SRC_O) | $(INC) ./Makefile
+$(NAME): $(PATH_OBJ) $(SRC_O) | $(INC)
 	@if [ $(INSTALL_BREW) == 1 ]; then $(BREW_INSTALL_CMD) fi;
 	@if [ $(INSTALL_SDL) == 1 ]; then $(SDL_INSTALL_CMD) fi;
 	@$(eval INSTRUCTION := all)
@@ -166,7 +166,7 @@ $(NAME): $(SRC_O) | $(INC) ./Makefile
 
 all: $(NAME)
 
-%.o: %.c $(INC) | $(PATH_OBJ)
+%.o: %.c
 	@$(CC) -o $(PATH_OBJ)$@ -c $< $(CFLAG); \
 		if [ $$? != 1 ]; then printf $(COMPILING_OK); exit 0; \
 		else printf $(COMPILING_KO); exit 2; fi
@@ -203,4 +203,4 @@ re: fclean all
 .PHONY:
 
 $(PATH_OBJ):
-	@mkdir $@
+	@mkdir -p $(PATH_OBJ)
