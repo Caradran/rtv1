@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 18:23:58 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/03 20:30:00 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/06 22:50:15 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,8 @@ double	hit_sphere(t_ray ray, t_sph sph)
 	delta = b * b - 4.0 * a * c;
 	if (delta <= 0.0)
 		return (-1.0);
-	else
-	{
-		if (((-b - sqrt(delta)) / (2.0 * a)) > 0)
-			return ((-b - sqrt(delta)) / (2.0 * a));
-		else
-			return ((-b + sqrt(delta)) / (2.0 * a));
-	}
+	if (((-b - sqrt(delta)) / (2.0 * a)) > 0)
+		return ((-b - sqrt(delta)) / (2.0 * a));
 }
 
 double	phong(t_ray ray, t_col col, t_vect norm, t_lights *lights)
@@ -68,7 +63,7 @@ double	phong(t_ray ray, t_col col, t_vect norm, t_lights *lights)
 	return (phongterm);
 }
 
-static double lambert(t_ray ray, t_vect norm, t_lights *lights)
+double lambert(t_ray ray, t_vect norm, t_lights *lights)
 {
 	return(vect_mult_scale(normal_vect(vect_sub(lights->lgt.vect,
 		vect_add(ray.org, vect_scale(ray.dist, ray.dir)))), norm));
@@ -80,7 +75,6 @@ t_col	intersec_sphere(t_ray ray, t_sph sph, t_env env)
 	t_col	fond;
 	t_col	col;
 	t_col	spec;
-	t_col	lamb;
 	double	lmbrt;
 
 	fond = init_col(0.0, 0.0, 0.0, 0.0);
@@ -94,6 +88,12 @@ t_col	intersec_sphere(t_ray ray, t_sph sph, t_env env)
 		col = fond;
 		while (env.lights)
 		{
+			if (hit_obj(env.lights->lgt, ray, env.formes))
+			{
+				col = addcol(fond, col);
+				env.lights = env.lights->next;
+				continue ;
+			}
 			lmbrt = lambert(ray, norm, env.lights);
 			if (lmbrt < 0.0)
 				lmbrt = 0.0;
@@ -104,7 +104,6 @@ t_col	intersec_sphere(t_ray ray, t_sph sph, t_env env)
 				phong(ray, sph.col, norm, env.lights) / 3.0));
 			env.lights = env.lights->next;
 		}
-		col = interpolcol(fond, col, (-vect_mult_scale(norm, ray.dir)));
 		col = addcol(spec, col);
 		return (col);
 	}

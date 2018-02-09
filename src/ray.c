@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 03:32:32 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/01 16:58:36 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/06 15:00:13 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ t_col	send_ray(t_ray *ray, t_env *env)
 				&& ((ray->dist > dist || ray->dist == -1) && dist >= 0
 					&& dist < R_THRESHOLD) && ((j = i) || 1))
 			ray->dist = dist;
+		else if (((ptr->type == 3) && (dist = hit_cone(*ray, ptr->cone)) >= 0) &&
+		((ray->dist > dist || ray->dist == -1) && dist >= 0) && ((j = i) || 1))
+				ray->dist = dist;
 		ptr = ptr->next;
 		i++;
 	}
@@ -85,5 +88,7 @@ t_col	send_ray(t_ray *ray, t_env *env)
 		return (intersec_sphere(*ray, ptr->sph, *env));
 	if (ptr->type == 2)
 		return (intersec_plan(*ray, ptr->plan, *env));
+	if (ptr->type == 3)
+		return (intersec_cone(*ray, ptr->cone, *env));
 	return (BACK_COLOR);
 }

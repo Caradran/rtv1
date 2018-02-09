@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:12:47 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/01 22:11:08 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/06 14:59:29 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,6 @@ double	hit_plan(t_ray ray, t_plan plan)
 	}
 }
 
-static double lambert(t_ray ray, t_vect norm, t_env env)
-{
-	return(vect_mult_scale(normal_vect(vect_sub(env.lights->lgt.vect,
-				vect_add(ray.org, vect_scale(ray.dist, ray.dir)))), norm));
-}
-
 t_col	intersec_plan(t_ray ray, t_plan plan, t_env env)
 {
 	t_vect	norm;
@@ -58,7 +52,7 @@ t_col	intersec_plan(t_ray ray, t_plan plan, t_env env)
 		col =fond;
 		while (env.lights)
 		{
-			labrt = -lambert(ray, norm, env);
+			labrt = -lambert(ray, norm, env.lights);
 			if (labrt >= 0)
 			{
 				col = addcol(interpolcol(fond,
