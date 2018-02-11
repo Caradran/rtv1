@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:23:53 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/06 17:11:14 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/11 13:04:20 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ int		init_env(t_env *env)
 int		main(int argc, char **argv)
 {
 	uint32_t			quit;
+	uint32_t			rpp;
 	t_env				env;
 	SDL_Event			e;
 
-	if (!SDL_Init(SDL_INIT_VIDEO) && !init_env(&env))
+	if (!(quit = 0) && !SDL_Init(SDL_INIT_VIDEO) && !init_env(&env))
 		exit(EXIT_FAILURE);
-	quit = 0;
 	while (!quit)
+	{
 		while (SDL_PollEvent(&e))
 		{
-		SDL_memset(env.surface->pixels, 0, env.surface->h * env.surface->pitch);
-			raycast_calculate_surface(&env);
+			rpp = env.rpp;
 			if (e.type == SDL_KEYDOWN)
 			{
 				if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
@@ -52,7 +52,11 @@ int		main(int argc, char **argv)
 			}
 			if (e.type == SDL_QUIT)
 				quit = 1;
-			SDL_UpdateWindowSurface(env.win);
 		}
+		if (rpp > 3)
+			rpp--;
+		raycast_calculate_surface(&env, rpp);
+		SDL_UpdateWindowSurface(env.win);
+	}
 	return (0);
 }
