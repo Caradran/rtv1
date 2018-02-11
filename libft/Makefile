@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:32 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/11 10:36:05 by mbeilles         ###   ########.fr        #
+#    Updated: 2018/02/11 10:38:21 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -198,7 +198,7 @@ $(NAME).a: $(PATH_OBJ) $(SRC_O) | $(INC)
 all: $(NAME).a
 
 %.o: %.c
-	@$(CC) -o $(PATH_OBJ)$@ -c $< $(CFLAG) $(FLAGS); \
+	@$(CC) -o $(PATH_OBJ)/$@ -c $< $(CFLAG) $(FLAGS); \
 		if [ $$? != 1 ]; then printf $(COMPILING_OK); exit 0; \
 		else printf $(COMPILING_KO); exit 2; fi
 
