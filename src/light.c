@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 06:54:14 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/03 14:45:18 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/10 06:50:38 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ t_col	multcol(t_col col1, t_col col2)
 	col.r = col1.r * col2.r;
 	col.g = col1.g * col2.g;
 	col.b = col1.b * col2.b;
+/*	col.r = fmin(col1.r, col2.r);
+	col.g = fmin(col1.g, col2.g);
+	col.b = fmin(col1.b, col2.b);*/
 	return (col);
 }
 
@@ -63,7 +66,7 @@ t_col	interpolcol(t_col col1, t_col col2, double t)
 	col.r = col1.r * (1 - t) + col2.r * t;
 	col.g = col1.g * (1 - t) + col2.g * t;
 	col.b = col1.b * (1 - t) + col2.b * t;
-	col.s = col1.s * (1 - t) + col2.s * t;
+//	col.s = col1.s * (1 - t) + col2.s * t;
 	return (col);
 }
 

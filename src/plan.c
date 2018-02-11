@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:12:47 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/06 14:59:29 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/10 09:22:15 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,33 @@ t_col	intersec_plan(t_ray ray, t_plan plan, t_env env)
 	double	labrt;
 	t_col	fond;
 	t_col	col;
+	t_col	spec;
 
 	fond = BACK_COLOR;
+	spec = BACK_COLOR;
 	if ((hit_plan(ray, plan)) >= 0.0)
 	{
 		norm = plan.nrml;
-		col =fond;
+		col = fond;
 		while (env.lights)
 		{
-			labrt = -lambert(ray, norm, env.lights);
-			if (labrt >= 0)
+			if (hit_obj(env.lights->lgt, ray, env.formes))
 			{
-				col = addcol(interpolcol(fond,
-						multcol(plan.col, env.lights->lgt.col),
-					labrt / 3), col);
-//				col = interpolcol(col, addcol(env.lights->lgt.col, col),
-//					phong(ray, plan.col, norm, env.lights));
+				col = addcol(fond, col);
+				env.lights = env.lights->next;
+				continue ;
 			}
+			labrt = lambert(ray, norm, env.lights);
+			if (labrt >= 0)
+				labrt = 0.0;
+//			printf("%f\n", ray.dist);
+			col = addcol(interpolcol(fond, multcol(plan.col,
+							env.lights->lgt.col), labrt * labrt), col);
+			spec = addcol(spec, interpolcol(fond, env.lights->lgt.col,
+						phong(ray, plan.col, norm, env.lights)/3.0));
 			env.lights = env.lights->next;
 		}
+		col = addcol(spec, col);
 		return (col);
 	}
 	return (fond);

@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 18:23:58 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/06 22:50:15 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/10 06:30:47 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,10 @@ t_col	intersec_sphere(t_ray ray, t_sph sph, t_env env)
 			}
 			lmbrt = lambert(ray, norm, env.lights);
 			if (lmbrt < 0.0)
-				lmbrt = 0.0;
+				lmbrt = 0;
 			col = addcol(interpolcol(fond, multcol(sph.col,
-							env.lights->lgt.col), lmbrt), col);
-			spec = addcol(spec, interpolcol(fond,
-						env.lights->lgt.col,
+							env.lights->lgt.col), lmbrt * lmbrt), col);
+			spec = addcol(spec, interpolcol(fond, env.lights->lgt.col,
 				phong(ray, sph.col, norm, env.lights) / 3.0));
 			env.lights = env.lights->next;
 		}
