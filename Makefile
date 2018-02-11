@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/11 10:33:07 by mbeilles         ###   ########.fr        #
+#    Updated: 2018/02/11 11:46:03 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,12 +80,13 @@ DEP = -L $(PATH_LIB) -lft $(SDL_LIB_PATH)									\
 SRC = main.c																\
 	  cam.c																	\
 	  formes.c																\
+			sphere.c														\
+			plan.c															\
+			cone.c															\
 	  light.c																\
 	  matop.c																\
-	  plan.c																\
 	  ray.c																	\
 	  sp_mat.c																\
-	  sphere.c																\
 	  vect.c																\
 	  raycast_layer.c														\
 	  print_obj.c															\
