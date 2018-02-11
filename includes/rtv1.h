@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:33:28 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/11 11:50:48 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/11 14:58:31 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,13 @@
 # define NICK				"Rt v1.0"
 # define WIDTH				1920
 # define HEIGHT				1080
-# define FOV				90
+# define FOV				(DEG_TO_RAD(90.0))
+# define FOV_H				(FOV / (double)HEIGHT * (double)WIDTH)
 # define R_THRESHOLD		50.0
 # define ROTATE_ANGLE		((float)FOV / (float)WIDTH * 16.0)
 # define MOVE_DISTANCE		0.5
+
+# define DEG_TO_RAD(x)		((double)x * M_PI / 180.0)
 
 # define BACK_COLOR			init_col(0.0, 0.0, 0.0, 0)
 
