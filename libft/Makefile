@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:32 by mbeilles          #+#    #+#              #
-#    Updated: 2018/01/31 05:39:22 by mbeilles         ###   ########.fr        #
+#    Updated: 2018/02/11 10:36:05 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ NICK = "LFT"
 CC = clang
 
 FLAGS = $(HIDDEN_FLAGS) $(FAST_FLAG) $(SLOW_FLAG)
-CFLAG = -O3 -I$(PATH_INC) -I$(PATH_LIB)$(PATH_INC)
-FAST_FLAG = -Ofast -march=native -flto
+CFLAG = -I$(PATH_INC)
+FAST_FLAG = -O3 -march=native -flto
 SLOW_FLAG = #-fsanitize=address -g3 -O0
 
 HIDDEN_FLAGS = -v -Weverything \
@@ -36,9 +36,9 @@ HIDDEN_FLAGS = -v -Weverything \
 #                                   Paths                                      #
 #==============================================================================#
 
-PATH_SRC = src/
-PATH_INC = includes/
-PATH_OBJ = obj/
+PATH_SRC = src
+PATH_INC = includes
+PATH_OBJ = obj
 
 VPATH = $(PATH_SRC):$(PATH_OBJ):$(PATH_INC)
 
@@ -152,7 +152,7 @@ vpath %.h $(PATH_INC)
 #==============================================================================#
 
 SRC_O = $(SRC:.c=.o)
-ARG_O = $(addprefix $(PATH_OBJ),$(notdir $(SRC:.c=.o)))
+ARG_O = $(addprefix $(PATH_OBJ)/,$(notdir $(SRC:.c=.o)))
 
 #==============================================================================#
 #                                   Strings                                    #
@@ -189,7 +189,7 @@ CLEANING_BINS = $(HD)$(OK)$(PROJECT_COLOR)"Binary cleaned\n"$(NRM)
 #	MAKEFILE
 #==============================================================================#
 
-$(NAME).a: $(SRC_O) | $(INC)
+$(NAME).a: $(PATH_OBJ) $(SRC_O) | $(INC)
 	@printf $(MAKING_PROGRESS)
 	@ar rc $(NAME).a $(ARG_O) && ranlib $(NAME).a; \
 		if [ $$? != 1 ]; then printf $(MAKING_SUCCESS); exit 0; \
@@ -197,7 +197,7 @@ $(NAME).a: $(SRC_O) | $(INC)
 
 all: $(NAME).a
 
-%.o: %.c $(INC) | $(PATH_OBJ)
+%.o: %.c
 	@$(CC) -o $(PATH_OBJ)$@ -c $< $(CFLAG) $(FLAGS); \
 		if [ $$? != 1 ]; then printf $(COMPILING_OK); exit 0; \
 		else printf $(COMPILING_KO); exit 2; fi
