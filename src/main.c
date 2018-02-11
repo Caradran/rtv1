@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:23:53 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/11 13:04:20 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/11 18:30:44 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		init_env(t_env *env)
 	env->formes = init_formes(env);
 	env->lights = init_lights(env);
 	env->rpp = 1;
+	env->pers = 1;
 	return (1);
 }
 
@@ -49,6 +50,11 @@ int		main(int argc, char **argv)
 					(env.rpp < 42) ? env.rpp++ : NULL;
 				if (e.key.keysym.scancode == SDL_SCANCODE_UP)
 					(env.rpp > 1) ? env.rpp-- : NULL;
+				if (e.key.keysym.scancode == SDL_SCANCODE_8)
+					(env.rpp < 100) ? (env.pers *= 1.1) : 0;
+				if (e.key.keysym.scancode == SDL_SCANCODE_2)
+					(env.rpp > 0.1) ? (env.pers /= 1.1) : 0;
+
 			}
 			if (e.type == SDL_QUIT)
 				quit = 1;

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 20:49:06 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/11 15:29:18 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/11 18:25:21 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void				raycast_calculate_surface(t_env *env, uint32_t rpp)
 							vect_scale((y - s->h / 2.0) / s->h, env->cam.dwn)), env->cam.org), rot_vect(rot_vect(env->cam.frt, ((FOV / 2.0) - (FOV / s->w * (double)x)), env->cam.dwn), ((FOV_H / 2.0) - (FOV_H / s->h * (double)y)), env->cam.rgt));*/
 			ray = init_ray(vect_add(vect_add(vect_scale((x - s->w / 2.0) / s->h, env->cam.rgt),
 							vect_scale((y - s->h / 2.0) / s->h, env->cam.dwn)), env->cam.org),
-					normal_vect(vect_sub(env->cam.frt, vect_sub(env->cam.org,
+					normal_vect(vect_sub(vect_scale(env->pers, env->cam.frt), vect_sub(env->cam.org,
 								vect_add(vect_add(vect_scale((x - s->w / 2.0) / s->h, env->cam.rgt),
 							vect_scale((y - s->h / 2.0) / s->h, env->cam.dwn)), env->cam.org)))));
 			set_pixels(s, x, y, (int32_t)rpp, send_ray(&ray, env));
