@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:33:28 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/01 18:51:17 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/11 11:50:48 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,7 @@
 */
 
 /*TODO*/
+
+void						raycast_calculate_surface(t_env *env, uint32_t rpp);
 
 #endif

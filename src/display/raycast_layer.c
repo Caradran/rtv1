@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 20:49:06 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/01 16:28:33 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/11 11:52:52 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void				set_pixels(SDL_Surface *s, uint32_t x, uint32_t y, int32_t rpp, t_col co
 	}
 }
 
-void				raycast_calculate_surface(t_env *env)
+void				raycast_calculate_surface(t_env *env, uint32_t rpp)
 {
 	t_ray			ray;
 	SDL_Surface		*s;
@@ -41,17 +41,17 @@ void				raycast_calculate_surface(t_env *env)
 	int32_t			y;
 
 	s = env->surface;
-	y = -env->rpp;
-	while (y < (t_vec_type)s->h + env->rpp)
+	y = -rpp;
+	while (y < (t_vec_type)s->h + rpp)
 	{
-		x = -env->rpp;
-		while (x < (t_vec_type)s->w + env->rpp)
+		x = -rpp;
+		while (x < (t_vec_type)s->w + rpp)
 		{
 			ray = init_ray(vect_add(vect_add(vect_scale((x - s->w / 2.0) / s->h, env->cam.rgt),
 							vect_scale((y - s->h / 2.0) / s->h, env->cam.dwn)), env->cam.org), env->cam.frt);
-			set_pixels(s, x, y, (int32_t)env->rpp, send_ray(&ray, env));
-			x += env->rpp;
+			set_pixels(s, x, y, (int32_t)rpp, send_ray(&ray, env));
+			x += rpp;
 		}
-		y += env->rpp;
+		y += rpp;
 	}
 }
