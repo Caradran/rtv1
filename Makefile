@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/09 07:52:36 by mbeilles         ###   ########.fr        #
+#    Updated: 2018/02/11 10:33:07 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ NICK = "RT1"
 CC = clang
 
 FLAGS = $(HIDDEN_FLAGS) $(NAZI_FLAG) $(FAST_FLAG) $(SLOW_FLAG)
-CFLAG = $(FLAGS) -I$(PATH_INC) -I$(PATH_LIB)$(PATH_INC) $(SDL_HDR_PATH)
+CFLAG = $(FLAGS) -I$(PATH_INC) -I$(PATH_LIB)/$(PATH_INC) $(SDL_HDR_PATH)
 FAST_FLAG = -Ofast -march=native -flto
 SLOW_FLAG = #-fsanitize=address -g3 -O0
 
@@ -37,10 +37,10 @@ NAZI_FLAG = -Weverything
 #                                   Paths                                      #
 #==============================================================================#
 
-PATH_SRC = src/
-PATH_INC = includes/
-PATH_OBJ = obj/
-PATH_LIB = libft/
+PATH_SRC = src
+PATH_INC = includes
+PATH_OBJ = obj
+PATH_LIB = libft
 
 SDL_LIB_PATH = $(shell sdl2-config --libs)
 SDL_HDR_PATH = $(shell sdl2-config --cflags)
@@ -109,14 +109,14 @@ vpath %.c $(PATH_SRC)/display
 vpath %.c $(PATH_SRC)/parser
 vpath %.o $(PATH_OBJ)
 vpath %.h $(PATH_INC)
-vpath %.h $(PATH_LIB)$(PATH_INC)
+vpath %.h $(PATH_LIB)/$(PATH_INC)
 
 #==============================================================================#
 #                             Variables Customizers                            #
 #==============================================================================#
 
 SRC_O = $(SRC:.c=.o)
-ARG_O = $(addprefix $(PATH_OBJ),$(notdir $(SRC:.c=.o)))
+ARG_O = $(addprefix $(PATH_OBJ)/,$(notdir $(SRC:.c=.o)))
 
 #==============================================================================#
 #                                   Strings                                    #
@@ -154,7 +154,7 @@ CLEANING_BINS = $(HD)$(OK)$(PROJECT_COLOR)"Binary cleaned\n"$(NRM)
 #                                    Rules                                     #
 #==============================================================================#
 
-$(NAME): $(SRC_O) | $(INC)
+$(NAME): $(PATH_OBJ) $(SRC_O) | $(INC)
 	@if [ $(INSTALL_BREW) == 1 ]; then $(BREW_INSTALL_CMD) fi;
 	@if [ $(INSTALL_SDL) == 1 ]; then $(SDL_INSTALL_CMD) fi;
 	@$(eval INSTRUCTION := all)
@@ -166,9 +166,8 @@ $(NAME): $(SRC_O) | $(INC)
 
 all: $(NAME)
 
-%.o: %.c | $(PATH_OBJ)
-	@mkdir -p $@
-	@$(CC) -o $(PATH_OBJ)$@ -c $< $(CFLAG); \
+%.o: %.c
+	@$(CC) -o $(PATH_OBJ)/$@ -c $< $(CFLAG); \
 		if [ $$? != 1 ]; then printf $(COMPILING_OK); exit 0; \
 		else printf $(COMPILING_KO); exit 2; fi
 
