@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:12:47 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/10 09:22:15 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/11 14:03:29 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ t_col	intersec_plan(t_ray ray, t_plan plan, t_env env)
 			labrt = lambert(ray, norm, env.lights);
 			if (labrt >= 0)
 				labrt = 0.0;
-//			printf("%f\n", ray.dist);
 			col = addcol(interpolcol(fond, multcol(plan.col,
 							env.lights->lgt.col), labrt * labrt), col);
 			spec = addcol(spec, interpolcol(fond, env.lights->lgt.col,

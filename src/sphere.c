@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 18:23:58 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/10 06:30:47 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/11 14:07:55 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ double	hit_sphere(t_ray ray, t_sph sph)
 	delta = b * b - 4.0 * a * c;
 	if (delta <= 0.0)
 		return (-1.0);
-	if (((-b - sqrt(delta)) / (2.0 * a)) > 0)
+//	if (((-b - sqrt(delta)) / (2.0 * a)) > 0)
 		return ((-b - sqrt(delta)) / (2.0 * a));
 }
 

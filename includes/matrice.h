@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:13:04 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/06 22:49:54 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/11 18:24:29 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct	s_env
 	t_formes	*formes;
 	t_lights	*lights;
 	uint32_t	rpp;
+	double		pers;
 }				t_env;
 
 void			print_objs(t_formes *formes);
