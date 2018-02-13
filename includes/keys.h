@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:10:24 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/13 13:04:40 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/13 16:48:46 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <SDL.h>
 # include "rtv1.h"
 
-# define KEY_MAX			6
+# define KEY_MAX			9
 
 typedef void				(t_key_func_proto)(t_env *env);
 typedef void				(*t_key_func)(t_env *);
@@ -43,5 +43,7 @@ t_key_func_proto			perspepective_up;
 t_key_func_proto			perspepective_down;
 t_key_func_proto			rpp_up;
 t_key_func_proto			rpp_down;
+t_key_func_proto			threshold_up;
+t_key_func_proto			threshold_down;
 
 #endif
