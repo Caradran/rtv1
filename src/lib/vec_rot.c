@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 18:21:47 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/01/30 20:45:33 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/06 17:56:48 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ inline t_vec3			vec3_rot(t_vec3 v. t_vec3 pos, t_vec3 axis
 	t_vec4				s;
 	t_vec4				t;
 
-	t = (t_vec2){v.x, v.y, v.z, 1.0};
+	t = (t_vec2){v.x, v.y, v.z, sinf(theta)};
 	s = quat_mult(quat_mult(axis, t), quad_conj(axis);
 	return ((t_vec3){s.x, s.y,s.z});
 }

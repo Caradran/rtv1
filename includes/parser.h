@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:08:41 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/06 12:01:33 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/11 12:40:35 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct				s_token_info
 	uint32_t				len;
 	uint32_t				index;
 	t_lexer_state			last_state;
+	int32_t					scope;
 }							t_token_info;
 
 typedef struct				s_token
@@ -97,8 +98,8 @@ typedef struct				s_parser_pattern
 
 t_token_info				create_info_token(char *path);
 
-uint32_t					parse_color(t_token_info *i, t_col *c);
-uint32_t					parse_vector(t_token_info *i, t_vect *v);
+uint32_t					parse_color(t_token t, t_token_info *i, t_col *c);
+uint32_t					parse_vector(t_token t, t_token_info *i, t_vect *v);
 
 uint32_t					parse_sphere(t_token t, t_token_info *i, t_env *e);
 uint32_t					parse_plane(t_token t, t_token_info *i, t_env *e);
@@ -107,5 +108,63 @@ uint32_t					parse_cone(t_token t, t_token_info *i, t_env *e);
 uint32_t					parse_cam(t_token t, t_token_info *i, t_env *e);
 uint32_t					parse_cylinder(t_token t, t_token_info *i
 		, t_env *e);
+
+/*
+** =============================================================================
+**
+** 							Toolkit
+**
+** =============================================================================
+*/
+
+typedef enum				e_toolkit_type
+{
+	TOOLKIT_MATCH_PATTERN = 0,
+	TOOLKIT_MATCH_TOKEN_TYPE,
+	TOOLKIT_MATCH_TOKEN_LEN,
+	TOOLKIT_MATCH_REGEX,
+	TOOLKIT_MATCH_MAX
+}							t_toolkit_type;
+
+typedef struct				s_tk_default
+{
+	t_toolkit_type			type;
+}							t_tk_default;
+
+typedef struct				s_tk_pattern_match
+{
+	t_toolkit_type			type;
+	char					*str;
+	uint32_t				len;
+}							t_tk_pattern_match;
+
+typedef struct				s_tk_type_match
+{
+	t_toolkit_type			type;
+	char					*str;
+	uint32_t				len;
+}							t_tk_type_match;
+
+typedef struct				s_tk_len_match
+{
+	t_toolkit_type			type;
+	uint32_t				len;
+}							t_tk_len_match;
+
+typedef struct				s_tk_regex_match
+{
+	t_toolkit_type			type;
+	char					*str;
+	uint32_t				len;
+}							t_tk_regex_match;
+
+typedef union				u_toolkit_syntax
+{
+	t_tk_default			std;
+	t_tk_pattern_match		pattern;
+	t_tk_type_match			token_type;
+	t_tk_len_match			token_len;
+	t_tk_regex_match		regex; //Disabled
+}							t_toolkit_syntax;
 
 #endif

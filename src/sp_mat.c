@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 02:18:14 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/03 18:57:11 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/13 13:29:47 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@ t_mat	id_mat(void)
 
 t_vect	mult_vect_mat(t_mat a, t_vect b)
 {
-	int		x;
-	int		y;
-	int		k;
 	t_vect	res;
 
 	res.x = b.x * a.mat[0][0] + b.y * a.mat[0][1] + b.z * a.mat[0][2];

@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:33:28 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/11 14:58:31 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/13 07:38:55 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@
 
 # define TITLE				"Raytracer v1.0"
 # define NICK				"Rt v1.0"
-# define WIDTH				1920
-# define HEIGHT				1080
+# define WIDTH				1280
+# define HEIGHT				720
 # define FOV				(DEG_TO_RAD(90.0))
 # define FOV_H				(FOV / (double)HEIGHT * (double)WIDTH)
 # define R_THRESHOLD		50.0
