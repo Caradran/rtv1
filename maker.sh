@@ -1,0 +1,1 @@
+make MAKE_DEP=1 HIDDEN_FLAGS= NAZI_FLAG=-Wall && ./rtv1
