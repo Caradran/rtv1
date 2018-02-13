@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:05:13 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/06 13:11:35 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/11 12:30:58 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_lexer_pattern		*get_lexing_patterns(void)
 {
-	static t_lexer_pattern	p[20] = {
+	static t_lexer_pattern	p[21] = {
 		(t_lexer_pattern){" ", 1, LEXER_STATE_SEPARATOR}
 	,(t_lexer_pattern){"\n", 1, LEXER_STATE_SEPARATOR}
 	,(t_lexer_pattern){"\t", 1, LEXER_STATE_SEPARATOR}
@@ -34,7 +34,8 @@ static t_lexer_pattern		*get_lexing_patterns(void)
 	,(t_lexer_pattern){"9", 1, LEXER_STATE_PARAMETER_NUMBER}
 	,(t_lexer_pattern){"-", 1, LEXER_STATE_PARAMETER_NUMBER}
 	,(t_lexer_pattern){"+", 1, LEXER_STATE_PARAMETER_NUMBER}
-	,(t_lexer_pattern){".", 1, LEXER_STATE_PARAMETER_NUMBER}};
+	,(t_lexer_pattern){".", 1, LEXER_STATE_PARAMETER_NUMBER}
+	,(t_lexer_pattern){"", 1, LEXER_STATE_MAX}};
 
 	return (p);
 }
@@ -46,7 +47,7 @@ t_lexer_state				get_next_lex(char c)
 
 	p = get_lexing_patterns();
 	i = ~0U;
-	while (++i < 20)
+	while (++i < 21)
 		if (c == *(p[i].pattern))
 			return (p[i].state);
 	return (LEXER_STATE_OBJECT);

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/03 20:57:30 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/05 01:47:22 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/11 12:39:56 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 #include "rtv1.h"
 #include "libft.h"
 
-uint32_t						parse_vector(t_token_info *i, t_vect *v)
+uint32_t						parse_vector(t_token t, t_token_info *i
+												, t_vect *v)
 {
 	double					d[3];
 	uint32_t				j;
-	t_token					t;
 	char					*s;
 
 	j = 0;
-	t = get_next_token(i);
 	if (!ft_strnequ(t.str, "vector", 6))
 		return (PARSER_ERROR_SYNTAX);
 	while (42)
