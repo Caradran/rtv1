@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:23:53 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/13 13:19:13 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/13 18:34:46 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,35 @@
 #include "keys.h"
 #include <stdio.h>
 
-int						init_env(t_env *env)
+t_env					*get_env(void)
+{
+	static t_env		env;
+
+	return (&env);
+}
+
+static int				draw(void *data)
+{
+	printf(HD"Draw thread started\n"C_NRM);
+	while (!(get_env()->quit))
+	{
+		if (get_env()->refresh)
+		{
+			raycast_calculate_surface(get_env(), get_env()->rpp_alt);
+			SDL_UpdateWindowSurface(get_env()->win);
+			if (get_env()->rpp_alt > get_env()->rpp_threshold)
+				get_env()->rpp_alt--;
+			else
+				get_env()->refresh = 0;
+		}
+	}
+	return (0);
+}
+
+static int				init_env(t_env *env)
 {
 	if (!(env->win = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_CENTERED
-	, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
+					, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 		exit(EXIT_FAILURE);
 	env->surface = SDL_GetWindowSurface(env->win);
 	env->cam = init_cam(init_vect(0, 0, 0), init_vect(1, 0, 0));
@@ -26,32 +51,31 @@ int						init_env(t_env *env)
 	env->lights = init_lights(env);
 	env->rpp = 4;
 	env->rpp_alt = 16;
+	env->rpp_threshold = 5;
 	env->pers = 1;
+	env->refresh = 1;
 	return (1);
 }
 
 int						main()
 {
-	uint32_t			quit;
-	t_env				env;
+	SDL_Thread			*t;
 	SDL_Event			e;
 
-	if (!(quit = 0) && !SDL_Init(SDL_INIT_VIDEO) && !init_env(&env))
+	if (!SDL_Init(SDL_INIT_VIDEO) && !init_env(get_env()))
 		exit(EXIT_FAILURE);
-	while (!quit)
+	if (!(t = SDL_CreateThread(draw, "Draw thread", NULL)))
+		exit(EXIT_FAILURE);
+	while (!get_env()->quit)
 	{
 		while (SDL_PollEvent(&e))
 		{
-			handle_keyboard(&env);
+			handle_keyboard(get_env());
 			if (e.type == SDL_WINDOWEVENT && e.window.event == SDL_WINDOWEVENT_RESIZED)
-				env.surface = SDL_GetWindowSurface(env.win);
+				get_env()->surface = SDL_GetWindowSurface(get_env()->win), get_env()->refresh = 1;
 			if (e.type == SDL_QUIT)
-				quit = 1;
+				exit(EXIT_SUCCESS);
 		}
-		if (env.rpp_alt > 5)
-			env.rpp_alt--;
-		raycast_calculate_surface(&env, env.rpp_alt);
-		SDL_UpdateWindowSurface(env.win);
 	}
 	return (0);
 }

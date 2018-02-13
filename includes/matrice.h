@@ -6,7 +6,11 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:13:04 by esuits            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/02/13 18:01:37 by esuits           ###   ########.fr       */
+=======
+/*   Updated: 2018/02/13 17:51:21 by mbeilles         ###   ########.fr       */
+>>>>>>> 98a4820b52a6fd525ad505c6c123fc41e7c50925
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +113,10 @@ typedef struct	s_env
 	t_lights	*lights;
 	uint32_t	rpp;
 	uint32_t	rpp_alt;
+	uint32_t	rpp_threshold;
+	uint32_t	refresh;
 	double		pers;
+	uint32_t	quit;
 }				t_env;
 
 void			print_objs(t_formes *formes);
@@ -141,7 +148,6 @@ t_ray			init_ray(t_vect org, t_vect dir);
 t_vect			init_vect(double x, double y, double z);
 t_col			init_col(double r, double g, double b, double s);
 t_lgt			init_lgt(t_col col, t_vect vect);
-int				init_env(t_env *env);
 int				init_mat(t_mat *mat, int i, int j);
 
 t_col			send_ray(t_ray *ray, t_env *env);
