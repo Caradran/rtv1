@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 03:32:32 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/06 15:00:13 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/13 17:34:30 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ t_col	send_ray(t_ray *ray, t_env *env)
 		((ray->dist > dist || ray->dist == -1) && dist >= 0) && ((j = i) || 1))
 				ray->dist = dist;
 		else if (((ptr->type == 2) && (dist = hit_plan(*ray, ptr->plan)) >= 0)
-				&& ((ray->dist > dist || ray->dist == -1) && dist >= 0
-					&& dist < R_THRESHOLD) && ((j = i) || 1))
+				&& ((ray->dist > dist || ray->dist == -1) && dist >= 0)
+				&& ((j = i) || 1))
 			ray->dist = dist;
 		else if (((ptr->type == 3) && (dist = hit_cone(*ray, ptr->cone)) >= 0) &&
 		((ray->dist > dist || ray->dist == -1) && dist >= 0) && ((j = i) || 1))

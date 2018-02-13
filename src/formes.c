@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 02:21:45 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/13 13:30:14 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/13 18:28:21 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ t_formes		*init_formes(t_env *env)
 	if (!(formes->next->next->next->next = malloc(sizeof(t_formes))))
 		return (NULL);
 	formes->next->next->next->next->type = 2;
-	formes->next->next->next->next->plan = init_plan(init_vect(0.5, 0, 0), 10, init_col(1, 1, 1, 1));
-	formes->next->next->next->next = NULL;
+	formes->next->next->next->next->plan = init_plan(init_vect(-0.5, 0, 0), 10, init_col(1, 1, 1, 1));
+	formes->next->next->next->next->next = NULL;
 //	print_obj(formes);
 	return (formes);
 }

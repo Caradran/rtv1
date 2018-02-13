@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 13:48:18 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/10 09:30:34 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/13 18:33:26 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,38 +100,12 @@ t_vect	normal_cone(t_ray ray, t_cone cone)
 
 t_col	intersec_cone(t_ray ray, t_cone cone, t_env env)
 {
-	t_vect	norm;
-	t_col	fond;
-	t_col	col;
-	t_col	spec;
-	double	lmbrt;
+	t_vect norm;
 
-	fond = init_col(0.0, 0.0, 0.0, 0.0);
-	spec = fond;
-	ray.dist = hit_cone(ray, cone);
-	if (ray.dist >= 0.0)
+	if (hit_cone(ray, cone) >= 0.0)
 	{
 		norm = normal_cone(ray, cone);
-		col = fond;
-		while (env.lights)
-		{
-			if (hit_obj(env.lights->lgt, ray, env.formes))
-			{
-				col = addcol(fond, col);
-				env.lights = env.lights->next;
-				continue ;
-			}
-			lmbrt = lambert(ray, norm, env.lights);
-			if (lmbrt < 0.0)
-				lmbrt = 0.0;
-			col = addcol(interpolcol(fond, multcol(cone.col,
-							env.lights->lgt.col), lmbrt * lmbrt), col);
-			spec = addcol(spec, interpolcol(fond, env.lights->lgt.col,
-				phong(ray, cone.col, norm, env.lights) / 3.0));
-			env.lights = env.lights->next;
-		}
-		col = addcol(spec, col);
-		return (col);
+		return (diffuse(env, norm, ray, cone.col));
 	}
-	return (fond);
+	return (BACK_COLOR);
 }

@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/13 13:12:48 by mbeilles         ###   ########.fr        #
+#    Updated: 2018/02/13 17:54:57 by esuits           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,7 @@ SRC = main.c																\
 	  light.c																\
 	  matop.c																\
 	  ray.c																	\
+	  	diffuse.c															\
 	  sp_mat.c																\
 	  vect.c																\
 	  raycast_layer.c														\
