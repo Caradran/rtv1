@@ -6,15 +6,16 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:23:53 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/11 18:30:44 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/13 13:19:13 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <SDL.h>
 #include "rtv1.h"
+#include "keys.h"
 #include <stdio.h>
 
-int		init_env(t_env *env)
+int						init_env(t_env *env)
 {
 	if (!(env->win = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_CENTERED
 	, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
@@ -23,15 +24,15 @@ int		init_env(t_env *env)
 	env->cam = init_cam(init_vect(0, 0, 0), init_vect(1, 0, 0));
 	env->formes = init_formes(env);
 	env->lights = init_lights(env);
-	env->rpp = 1;
+	env->rpp = 4;
+	env->rpp_alt = 16;
 	env->pers = 1;
 	return (1);
 }
 
-int		main(int argc, char **argv)
+int						main()
 {
 	uint32_t			quit;
-	uint32_t			rpp;
 	t_env				env;
 	SDL_Event			e;
 
@@ -41,27 +42,15 @@ int		main(int argc, char **argv)
 	{
 		while (SDL_PollEvent(&e))
 		{
-			rpp = env.rpp;
-			if (e.type == SDL_KEYDOWN)
-			{
-				if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-					exit(EXIT_SUCCESS);
-				if (e.key.keysym.scancode == SDL_SCANCODE_DOWN)
-					(env.rpp < 42) ? env.rpp++ : NULL;
-				if (e.key.keysym.scancode == SDL_SCANCODE_UP)
-					(env.rpp > 1) ? env.rpp-- : NULL;
-				if (e.key.keysym.scancode == SDL_SCANCODE_8)
-					(env.rpp < 100) ? (env.pers *= 1.1) : 0;
-				if (e.key.keysym.scancode == SDL_SCANCODE_2)
-					(env.rpp > 0.1) ? (env.pers /= 1.1) : 0;
-
-			}
+			handle_keyboard(&env);
+			if (e.type == SDL_WINDOWEVENT && e.window.event == SDL_WINDOWEVENT_RESIZED)
+				env.surface = SDL_GetWindowSurface(env.win);
 			if (e.type == SDL_QUIT)
 				quit = 1;
 		}
-		if (rpp > 3)
-			rpp--;
-		raycast_calculate_surface(&env, rpp);
+		if (env.rpp_alt > 5)
+			env.rpp_alt--;
+		raycast_calculate_surface(&env, env.rpp_alt);
 		SDL_UpdateWindowSurface(env.win);
 	}
 	return (0);

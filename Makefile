@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/11 11:46:03 by mbeilles         ###   ########.fr        #
+#    Updated: 2018/02/13 13:12:48 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,9 @@ SRC = main.c																\
 			parse_color.c													\
 			parse_sphere.c													\
 			parse_vector.c													\
+	  keys_utils.c															\
+	  keys_functions.c														\
+	  keys_handling.c														\
 
 INC = libft.h																\
 	  rtv1.h																\
@@ -108,6 +111,7 @@ INC = libft.h																\
 vpath %.c $(PATH_SRC)
 vpath %.c $(PATH_SRC)/display
 vpath %.c $(PATH_SRC)/parser
+vpath %.c $(PATH_SRC)/keys
 vpath %.o $(PATH_OBJ)
 vpath %.h $(PATH_INC)
 vpath %.h $(PATH_LIB)/$(PATH_INC)
