@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 02:21:45 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/14 17:24:03 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/14 19:03:00 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,27 +75,36 @@ int				hit_obj(t_lgt lgt, t_ray camray, t_formes *formes,
 	t_vect		dir;
 	t_ray		ray;
 	t_formes	*ptr;
-
+	t_formes	*ombre;
 
 	dir = vect_sub(vect_add(camray.org, vect_scale(camray.dist, camray.dir)), 
 	lgt.vect);
 	ray = init_ray(lgt.vect, normal_vect(dir));
 	ptr = formes;
+	ombre = NULL;
 	while (ptr)
 	{
 		if (((ptr->type == 1) && (dist = hit_sphere(ray, ptr->sph)) >= 0) &&
 		((ray.dist > dist || ray.dist == -1) && dist >= 0))
+		{
 				ray.dist = dist;
+				ombre = ptr;
+		}
 		else if (((ptr->type == 2) && (dist = hit_plan(ray, ptr->plan)) >= 0)
-				&& ((ray.dist > dist || ray.dist == -1) && dist >= 0
-					&& dist < R_THRESHOLD))
+				&& ((ray.dist > dist || ray.dist == -1) && dist >= 0))
+		{
 			ray.dist = dist;
+			ombre = ptr;
+		}
 		else if (((ptr->type == 3) && (dist = hit_cone(ray, ptr->cone)) >= 0) &&
 		((ray.dist > dist || ray.dist == -1) && dist >= 0))
+		{
 				ray.dist = dist;
+				ombre = ptr;
+		}
 		ptr = ptr->next;
 	}
-	if (ray.dist > (norme_vect(dir) - 0.000000001))
+	if (ombre && !ft_memcmp(ombre, objet, sizeof(t_formes)))
 		return (0);
 	return (1);
 }
