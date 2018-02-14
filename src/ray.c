@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 03:32:32 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/13 17:34:30 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/14 17:24:39 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ t_col	send_ray(t_ray *ray, t_env *env)
 {
 	t_formes	*ptr;
 	double		dist;
-	int i;
-	int j;
+	int			i;
+	int			j;
 
 	i = 0;
 	j = -1;
@@ -68,14 +68,14 @@ t_col	send_ray(t_ray *ray, t_env *env)
 	{
 		if (((ptr->type == 1) && (dist = hit_sphere(*ray, ptr->sph)) >= 0) &&
 		((ray->dist > dist || ray->dist == -1) && dist >= 0) && ((j = i) || 1))
-				ray->dist = dist;
+			ray->dist = dist;
 		else if (((ptr->type == 2) && (dist = hit_plan(*ray, ptr->plan)) >= 0)
 				&& ((ray->dist > dist || ray->dist == -1) && dist >= 0)
 				&& ((j = i) || 1))
 			ray->dist = dist;
 		else if (((ptr->type == 3) && (dist = hit_cone(*ray, ptr->cone)) >= 0) &&
 		((ray->dist > dist || ray->dist == -1) && dist >= 0) && ((j = i) || 1))
-				ray->dist = dist;
+			ray->dist = dist;
 		ptr = ptr->next;
 		i++;
 	}
@@ -85,10 +85,10 @@ t_col	send_ray(t_ray *ray, t_env *env)
 	while (j--)
 		ptr = ptr->next;
 	if (ptr->type == 1)
-		return (intersec_sphere(*ray, ptr->sph, *env));
+		return (intersec_sphere(*ray, ptr, *env));
 	if (ptr->type == 2)
-		return (intersec_plan(*ray, ptr->plan, *env));
+		return (intersec_plan(*ray, ptr, *env));
 	if (ptr->type == 3)
-		return (intersec_cone(*ray, ptr->cone, *env));
+		return (intersec_cone(*ray, ptr, *env));
 	return (BACK_COLOR);
 }

@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:12:47 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/13 18:28:02 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/14 17:38:51 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ double	hit_plan(t_ray ray, t_plan plan)
 	}
 }
 
-t_col	intersec_plan(t_ray ray, t_plan plan, t_env env)
+t_col	intersec_plan(t_ray ray, t_formes *pln, t_env env)
 {
 	t_vect	norm;
 
-	if ((hit_plan(ray, plan)) >= 0.0)
+	if (ray.dist >= 0.0)
 	{
-		norm = plan.nrml;
-		return (diffuse(env, norm, ray, plan.col));
+		pln->norm = pln->plan.nrml;
+		return (diffuse(env, pln, ray, pln->plan.col));
 	}
 	return (BACK_COLOR);
 }

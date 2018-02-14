@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 18:23:58 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/13 18:34:38 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/14 17:34:58 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,15 @@ double	hit_sphere(t_ray ray, t_sph sph)
 	return ((-b - sqrt(delta)) / (2.0 * a));
 }
 
-t_col	intersec_sphere(t_ray ray, t_sph sph, t_env env)
+t_col	intersec_sphere(t_ray ray, t_formes *sphere, t_env env)
 {
-	t_vect	norm;
 
-	if (hit_sphere(ray, sph) >= 0.0)
+	if (ray.dist >= 0.0)
 	{
-		norm = normal_vect(
+		sphere->norm = normal_vect(
 			vect_sub(vect_add(ray.org,
-						vect_scale(ray.dist, ray.dir)), sph.ctr));
-		return (diffuse(env, norm, ray, sph.col));
+						vect_scale(ray.dist, ray.dir)), sphere->sph.ctr));
+		return (diffuse(env, sphere, ray, sphere->sph.col));
 	}
 	return (BACK_COLOR);
 }

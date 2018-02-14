@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:54:27 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/13 17:26:40 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/14 12:05:26 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,20 @@ void					rpp_down(t_env *env)
 {
 	if (env->rpp > 1)
 		env->rpp--;
+	env->rpp_alt = env->rpp;
+}
+
+void					expo_up(t_env *env)
+{
+	if (env->expo < 42)
+		env->expo *= 1.01;
+	env->rpp_alt = env->rpp;
+}
+
+void					expo_down(t_env *env)
+{
+	if (env->expo > 0)
+		env->expo /= 1.01;
 	env->rpp_alt = env->rpp;
 }
 

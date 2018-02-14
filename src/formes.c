@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 02:21:45 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/13 18:28:21 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/14 17:24:03 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ t_formes		*init_formes(t_env *env)
 		return (NULL);
 	formes->type = 3;
 	formes->cone = init_cone(init_vect(2, 0, 0),
-			init_vect(-0.2, -1, 1), M_PI/5.0,  init_col(1, 1, 1, 1));
+			init_vect(0, -1, 1), M_PI/5.0,  init_col(1, 1, 1, 1));
 	if (!(formes->next = malloc(sizeof(t_formes))))
 		return (NULL);
-	formes->next->type = 3;
+	formes->next->type = 0;
 	formes->next->cone = init_cone(init_vect(10, 0, 0),
 			init_vect(-1, 1, 1), M_PI/10.0,  init_col(1, 1, 1, 1));
 	if (!(formes->next->next = malloc(sizeof(t_formes))))
@@ -47,26 +47,29 @@ t_formes		*init_formes(t_env *env)
 t_lights		*init_lights(t_env *env)
 {
 	t_lights	*lights;
-	double		n = 10;
+	double		n = 0.5;
 
 	(void)env;
 	if (!(lights = malloc(sizeof(t_lights))))
 		return (NULL);
-	lights->lgt = init_lgt(init_col(0, 1, 0.5, 1), init_vect(0, n * -1, 0));
+	lights->lgt = init_lgt(init_col(0, 0, 1, 1),
+			init_vect(0, n * -1, 0));
 //	lights->next = NULL;
 	if (!(lights->next = malloc(sizeof(t_lights))))
 		return (NULL);
-	lights->next->lgt = init_lgt(init_col(1, 0, 0.5, 1), init_vect(0, n*0.5, n*0.866));
+	lights->next->lgt = init_lgt(init_col(0, 1, 0, 1),
+			init_vect(0, n * 0.5, n * 0.866));
 //	lights->next->next = NULL;
 	if (!(lights->next->next = malloc(sizeof(t_lights))))
 		return (NULL);
-	lights->next->next->lgt = init_lgt(init_col(0.5, 0, 1, 1),
+	lights->next->next->lgt = init_lgt(init_col(1, 0, 0, 1),
 			init_vect(0, n * 0.5, n * -0.866));
 	lights->next->next->next = NULL;
 	return (lights);
 }
 
-int				hit_obj(t_lgt lgt, t_ray camray, t_formes *formes)
+int				hit_obj(t_lgt lgt, t_ray camray, t_formes *formes,
+		t_formes *objet)
 {
 	double		dist;
 	t_vect		dir;

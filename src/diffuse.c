@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 17:34:43 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/13 18:30:37 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/14 17:41:20 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,35 @@ double	phong(t_ray ray, t_col col, t_vect norm, t_lights *lights)
 	return (phongterm);
 }
 
-double lambert(t_ray ray, t_vect norm, t_lights *lights)
+double	lambert(t_ray ray, t_vect norm, t_lights *lights)
 {
-	return(vect_mult_scale(normal_vect(vect_sub(lights->lgt.vect,
+	return (vect_mult_scale(normal_vect(vect_sub(lights->lgt.vect,
 		vect_add(ray.org, vect_scale(ray.dist, ray.dir)))), norm));
 }
 
-t_col	diffuse(t_env env, t_vect norm, t_ray ray, t_col col_obj)
+t_col	diffuse(t_env env, t_formes *forme, t_ray ray, t_col col_obj)
 {
 	double		lmbrt;
 	t_col		col;
-	t_col		fond;
 	t_col		spec;
 
 	col = BACK_COLOR;
-	fond = col;
 	spec = col;
 	while (env.lights)
 	{
-		if (hit_obj(env.lights->lgt, ray, env.formes))
+		if (hit_obj(env.lights->lgt, ray, env.formes, forme))
 		{
-			col = addcol(fond, col);
 			env.lights = env.lights->next;
 			continue ;
 		}
-		lmbrt = lambert(ray, norm, env.lights);
+		lmbrt = lambert(ray, forme->norm, env.lights);
 		if (lmbrt < 0.0)
 			lmbrt = 0;
-		col = addcol(interpolcol(fond, multcol(col_obj,
-					env.lights->lgt.col), lmbrt * lmbrt), col);
-		spec = addcol(spec, interpolcol(fond, env.lights->lgt.col,
-					phong(ray, col_obj, norm, env.lights) / 3.0));
+		col = addcol(interpolcol(BACK_COLOR, mult_scale_col(env.expo, multcol(
+					col_obj, env.lights->lgt.col)), lmbrt * lmbrt), col);
+		spec = addcol(spec, mult_scale_col(env.expo, interpolcol(BACK_COLOR,
+			env.lights->lgt.col, phong(ray, col_obj, forme->norm,
+				env.lights) / 3.0)));
 		env.lights = env.lights->next;
 	}
 	return (addcol(spec, col));

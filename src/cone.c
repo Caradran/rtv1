@@ -1,4 +1,4 @@
-/************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cone.c                                             :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 13:48:18 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/13 18:33:26 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/14 17:39:13 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,18 @@ double	hit_cone2(t_ray ray, t_cone cone)
 	k = tan(cone.theta);
 	k = k * k;
 	oc = vect_sub(ray.org, cone.org);
-	a = vect_mult_scale(ray.dir, ray.dir) 
-		- (1 + k) * vect_mult_scale(ray.dir, cone.dir) * vect_mult_scale(ray.dir, cone.dir);
+	a = vect_mult_scale(ray.dir, ray.dir)
+		- (1 + k) * vect_mult_scale(ray.dir, cone.dir)
+		* vect_mult_scale(ray.dir, cone.dir);
 	b = 2 * (vect_mult_scale(ray.dir, oc) - (1 + k) *
 			vect_mult_scale(ray.dir, cone.dir) * vect_mult_scale(oc, cone.dir));
 	k = vect_mult_scale(oc, oc)
-		- (1 + k) * vect_mult_scale(oc, cone.dir) * vect_mult_scale(oc, cone.dir);
+		- (1 + k) * vect_mult_scale(oc, cone.dir)
+		* vect_mult_scale(oc, cone.dir);
 	delta = b * b - 4 * a * k;
 	if (delta <= 0.0)
 		return (-1.0);
-	return ((-b - sqrt(delta))/ (2.0 * a));
+	return ((-b - sqrt(delta)) / (2.0 * a));
 }
 
 double	hit_cone(t_ray ray, t_cone cone)
@@ -58,9 +60,9 @@ double	hit_cone(t_ray ray, t_cone cone)
 	k = tan(cone.theta);
 	k = k * k;
 	oc = vect_sub(ray.org, cone.org);
-	a = vect_mult_scale(ray.dir, ray.dir) 
+	a = vect_mult_scale(ray.dir, ray.dir)
 		- (1 + k) * vect_mult_scale(ray.dir, cone.dir) *
-		vect_mult_scale(ray.dir, cone.dir) ;
+		vect_mult_scale(ray.dir, cone.dir);
 	b = 2 * (vect_mult_scale(ray.dir, oc) - (1 + k) *
 			vect_mult_scale(ray.dir, cone.dir) *
 			vect_mult_scale(oc, cone.dir));
@@ -98,14 +100,12 @@ t_vect	normal_cone(t_ray ray, t_cone cone)
 	return (norm);
 }
 
-t_col	intersec_cone(t_ray ray, t_cone cone, t_env env)
+t_col	intersec_cone(t_ray ray, t_formes *obj, t_env env)
 {
-	t_vect norm;
-
-	if (hit_cone(ray, cone) >= 0.0)
+	if (hit_cone(ray, obj->cone) >= 0.0)
 	{
-		norm = normal_cone(ray, cone);
-		return (diffuse(env, norm, ray, cone.col));
+		obj->norm = normal_cone(ray, obj->cone);
+		return (diffuse(env, obj, ray, obj->cone.col));
 	}
 	return (BACK_COLOR);
 }

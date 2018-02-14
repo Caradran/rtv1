@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 18:43:33 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/13 18:43:36 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/14 17:45:54 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct	s_formes
 	t_sph				sph;
 	t_plan				plan;
 	t_cone				cone;
+	t_vect				norm;
 }				t_formes;
 
 typedef struct	s_lights
@@ -112,6 +113,7 @@ typedef struct	s_env
 	uint32_t	rpp_threshold;
 	uint32_t	refresh;
 	double		pers;
+	double		expo;
 	uint32_t	quit;
 }				t_env;
 
@@ -151,6 +153,7 @@ int				coltoi(t_col col);
 t_col			interpolcol(t_col col1, t_col col2, double t);
 t_col			addcol(t_col col1, t_col col2);
 t_col			multcol(t_col col1, t_col col2);
+t_col			mult_scale_col(double t, t_col col);
 
 t_formes		*init_formes(t_env *env);
 t_lights		*init_lights(t_env *env);
@@ -158,15 +161,15 @@ t_plan			init_plan(t_vect nrml, double dst, t_col col);
 t_sph			init_sph(t_vect ctr, double r, t_col col);
 t_cone			init_cone(t_vect org, t_vect dir, double theta, t_col col);
 
-t_col			intersec_plan(t_ray ray, t_plan plan, t_env env);
-t_col			intersec_sphere(t_ray ray, t_sph sph, t_env env);
-t_col			intersec_cone(t_ray ray, t_cone cone, t_env env);
+t_col			intersec_plan(t_ray ray, t_formes *plan, t_env env);
+t_col			intersec_sphere(t_ray ray, t_formes *sph, t_env env);
+t_col			intersec_cone(t_ray ray, t_formes *cone, t_env env);
 
 double			lambert(t_ray ray, t_vect norm, t_lights *lights);
 double			phong(t_ray ray, t_col col, t_vect norm, t_lights *lights);
-t_col			diffuse(t_env env, t_vect norm, t_ray ray, t_col col);
+t_col			diffuse(t_env env, t_formes *forme, t_ray ray, t_col col);
 
-int				hit_obj(t_lgt lgt, t_ray ray, t_formes *formes);
+int				hit_obj(t_lgt lgt, t_ray ray, t_formes *formes, t_formes *obj);
 double			hit_cone(t_ray ray, t_cone cone);
 double			hit_sphere(t_ray ray, t_sph sph);
 double			hit_plan(t_ray ray, t_plan plan);

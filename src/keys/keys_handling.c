@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:54:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/13 17:55:35 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/14 11:58:17 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_key					*init_keys(void)
 	k[6] = create_key(1, create_codes(1, SDL_SCANCODE_UP), &rpp_down);
 	k[7] = create_key(2, create_codes(2, SDL_SCANCODE_DOWN, SDL_SCANCODE_LGUI), &threshold_up);
 	k[8] = create_key(2, create_codes(2, SDL_SCANCODE_UP, SDL_SCANCODE_LGUI), &threshold_down);
+	k[9] = create_key(1, create_codes(1, SDL_SCANCODE_1), &expo_up);
+	k[10] = create_key(1, create_codes(1, SDL_SCANCODE_2), &expo_down);
 	printf(HD"done.\n"C_NRM);
 	return (k);
 }
