@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 03:32:32 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/14 17:24:39 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/14 19:48:47 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,17 @@ t_col	send_ray(t_ray *ray, t_env *env)
 	ptr = env->formes;
 	while (ptr)
 	{
-		if (((ptr->type == 1) && (dist = hit_sphere(*ray, ptr->sph)) >= 0) &&
-		((ray->dist > dist || ray->dist == -1) && dist >= 0) && ((j = i) || 1))
+		if (((ptr->type == 1) && (dist = hit_sphere(*ray, ptr->sph)) >= 0)
+				&& ((ray->dist > dist || ray->dist == -1) && dist >= 0)
+				&& ((j = i) || 1))
 			ray->dist = dist;
 		else if (((ptr->type == 2) && (dist = hit_plan(*ray, ptr->plan)) >= 0)
 				&& ((ray->dist > dist || ray->dist == -1) && dist >= 0)
 				&& ((j = i) || 1))
 			ray->dist = dist;
-		else if (((ptr->type == 3) && (dist = hit_cone(*ray, ptr->cone)) >= 0) &&
-		((ray->dist > dist || ray->dist == -1) && dist >= 0) && ((j = i) || 1))
+		else if (((ptr->type == 3) && (dist = hit_cone(*ray, ptr->cone)) >= 0)
+				&& ((ray->dist > dist || ray->dist == -1) && dist >= 0)
+				&& ((j = i) || 1))
 			ray->dist = dist;
 		ptr = ptr->next;
 		i++;
