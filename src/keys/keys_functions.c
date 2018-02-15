@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:54:27 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/14 12:05:26 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/15 11:23:42 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,22 @@ void					toggle_fullscreen(t_env *env)
 		printf(HD"Entering fullscreen!\n");
 		SDL_SetWindowFullscreen(env->win, flg);
 	}
+	env->rpp_alt = env->rpp;
 }
 
 void					perspepective_up(t_env *env)
 {
-	printf(HD"Perspective up %f\n"C_NRM, env->pers);
 	if (env->pers < 100)
 		env->pers *= 1.1;
+	printf(HD"Perspective up %f\n"C_NRM, env->pers);
 	env->rpp_alt = env->rpp;
 }
 
 void					perspepective_down(t_env *env)
 {
-	printf(HD"Perspective down %f\n"C_NRM, env->pers);
 	if (env->pers > 0)
 		env->pers /= 1.1;
+	printf(HD"Perspective down %f\n"C_NRM, env->pers);
 	env->rpp_alt = env->rpp;
 }
 

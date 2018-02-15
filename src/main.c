@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:23:53 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/14 11:34:38 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/15 14:01:19 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int				draw(void *data)
 	{
 		if (get_env()->refresh)
 		{
+			get_env()->surface = SDL_GetWindowSurface(get_env()->win);
 			raycast_calculate_surface(get_env(), get_env()->rpp_alt);
 			SDL_UpdateWindowSurface(get_env()->win);
 			if (get_env()->rpp_alt > get_env()->rpp_threshold)
@@ -50,11 +51,11 @@ static int				init_env(t_env *env)
 	env->cam = init_cam(init_vect(0, 0, 0), init_vect(1, 0, 0));
 	env->formes = init_formes(env);
 	env->lights = init_lights(env);
-	env->rpp = 4;
-	env->rpp_alt = 16;
+	env->rpp = 21;
+	env->rpp_alt = 21;
 	env->rpp_threshold = 1;
-	env->pers = 1.0;
 	env->refresh = 1;
+	env->pers = 1.0;
 	env->expo = 1.0;
 	return (1);
 }
@@ -73,10 +74,12 @@ int						main(void)
 		while (SDL_PollEvent(&e))
 		{
 			handle_keyboard(get_env());
-			if (e.type == SDL_WINDOWEVENT_RESIZED
+			if (e.type == SDL_WINDOWEVENT
 					&& e.window.event == SDL_WINDOWEVENT_RESIZED)
-				get_env()->surface = SDL_GetWindowSurface(get_env()->win),
-					get_env()->refresh = 1;
+			{
+				get_env()->rpp_alt = get_env()->rpp;
+				get_env()->refresh = 1;
+			}
 			if (e.type == SDL_QUIT)
 				exit(EXIT_SUCCESS);
 		}

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 18:43:33 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/14 17:45:54 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/15 10:45:10 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ t_col			init_col(double r, double g, double b, double s);
 t_lgt			init_lgt(t_col col, t_vect vect);
 int				init_mat(t_mat *mat, int i, int j);
 
-t_col			send_ray(t_ray *ray, t_env *env);
+t_col			send_ray(t_ray ray, t_env *env);
 int				coltoi(t_col col);
 t_col			interpolcol(t_col col1, t_col col2, double t);
 t_col			addcol(t_col col1, t_col col2);

@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/13 17:54:57 by esuits           ###   ########.fr        #
+#    Updated: 2018/02/15 08:51:29 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CC = clang
 
 FLAGS = $(HIDDEN_FLAGS) $(NAZI_FLAG) $(FAST_FLAG) $(SLOW_FLAG)
 CFLAG = $(FLAGS) -I$(PATH_INC) -I$(PATH_LIB)/$(PATH_INC) $(SDL_HDR_PATH)
-FAST_FLAG = -Ofast -march=native -flto
+FAST_FLAG = -O3 -march=native -flto
 SLOW_FLAG = #-fsanitize=address -g3 -O0
 
 HIDDEN_FLAGS = -v
