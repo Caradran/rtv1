@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 13:48:18 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/14 17:39:13 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/15 16:52:50 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ double	hit_cone(t_ray ray, t_cone cone)
 	double delta;
 	t_vect oc;
 
-	k = tan(cone.theta);
+	k = tan(cone.theta / 2);
 	k = k * k;
 	oc = vect_sub(ray.org, cone.org);
 	a = vect_mult_scale(ray.dir, ray.dir)

@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 17:34:43 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/14 17:41:20 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/15 00:02:51 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_col	diffuse(t_env env, t_formes *forme, t_ray ray, t_col col_obj)
 					col_obj, env.lights->lgt.col)), lmbrt * lmbrt), col);
 		spec = addcol(spec, mult_scale_col(env.expo, interpolcol(BACK_COLOR,
 			env.lights->lgt.col, phong(ray, col_obj, forme->norm,
-				env.lights) / 3.0)));
+				env.lights))));
 		env.lights = env.lights->next;
 	}
 	return (addcol(spec, col));
