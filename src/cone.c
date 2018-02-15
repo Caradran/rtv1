@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 13:48:18 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/15 16:52:50 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/15 20:59:49 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,27 +76,20 @@ double	hit_cone(t_ray ray, t_cone cone)
 
 t_vect	normal_cone(t_ray ray, t_cone cone)
 {
-	double m;
-	t_vect p;
+	double height;
+	t_vect hit;
 	t_vect oc;
 	double k;
 	t_vect norm;
 
-	p = vect_add(ray.org, vect_scale(ray.dist, ray.dir));
-	oc = vect_sub(ray.org, cone.org);
-	m = vect_mult_scale(ray.dir, vect_scale(ray.dist, cone.dir)) +
-		vect_mult_scale(oc, cone.dir);
-	k = tan(cone.theta);
-	norm = normal_vect(vect_sub(vect_sub(p, cone.org),
-				vect_scale(1.0 + k * k * m, cone.dir)));
-	if (m > 0.0)
-		return (norm);
-	cone.dir = vect_scale(-1.0, cone.dir);
-	p = vect_add(ray.org, vect_scale(ray.dist, ray.dir));
-	m = vect_mult_scale(ray.dir, vect_scale(ray.dist, cone.dir)) +
-		vect_mult_scale(oc, cone.dir);
-	norm = normal_vect(vect_sub(vect_sub(p, cone.org),
-				vect_scale(1.0 + k * k * m, cone.dir)));
+	hit  = vect_add(ray.org, vect_scale(ray.dist, ray.dir));
+//	if (vect_mult_scale(cone.dir, hit) < 0)
+//		ray.dir = vect_scale(-1.0, ray.dir);
+	oc = vect_add(ray.org, cone.org);
+	k = 1.0 / cos(cone.theta / 2);
+	height = norme_vect(vect_scale(k, vect_sub(hit, oc)));
+	norm = normal_vect(vect_sub(vect_sub(hit, oc), vect_scale(height, cone.dir)));
+
 	return (norm);
 }
 
