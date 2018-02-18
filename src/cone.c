@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 13:48:18 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/16 19:15:19 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/18 14:31:17 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_cone	init_cone(t_vect org, t_vect dir, double theta, t_col col)
 	cone.col = col;
 	return (cone);
 }
-double	hit_cone(t_ray ray, t_cone cone)
+double	hit_cone(t_ray ray, t_formes *forme)
 {
 	double a;
 	double b;
@@ -30,17 +30,18 @@ double	hit_cone(t_ray ray, t_cone cone)
 	double delta;
 	t_vect oc;
 
-	k = tan(cone.theta / 2);
+	k = tan(forme->cone.theta / 2);
 	k = k * k;
-	oc = vect_sub(ray.org, cone.org);
+	oc = vect_sub(ray.org, forme->cone.org);
 	a = vect_mult_scale(ray.dir, ray.dir)
-		- (1 + k) * vect_mult_scale(ray.dir, cone.dir) *
-		vect_mult_scale(ray.dir, cone.dir);
+		- (1 + k) * vect_mult_scale(ray.dir, forme->cone.dir) *
+		vect_mult_scale(ray.dir, forme->cone.dir);
 	b = 2 * (vect_mult_scale(ray.dir, oc) - (1 + k) *
-			vect_mult_scale(ray.dir, cone.dir) *
-			vect_mult_scale(oc, cone.dir));
+			vect_mult_scale(ray.dir, forme->cone.dir) *
+			vect_mult_scale(oc, forme->cone.dir));
 	k = vect_mult_scale(oc, oc) - (1 + k) *
-		vect_mult_scale(oc, cone.dir) * vect_mult_scale(oc, cone.dir);
+		vect_mult_scale(oc, forme->cone.dir) *
+		vect_mult_scale(oc, forme->cone.dir);
 	delta = b * b - 4 * a * k;
 	if (delta <= 0.0)
 		return (-1.0);

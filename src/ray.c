@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 03:32:32 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/14 19:48:47 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/18 14:34:28 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ double	vect_mult_scale(t_vect u, t_vect v)
 	return (u.x * v.x + u.y * v.y + u.z * v.z);
 }
 
-t_col	send_ray(t_ray *ray, t_env *env)
+t_col	send_ray(t_ray ray, t_env *env)
 {
 	t_formes	*ptr;
 	double		dist;
@@ -66,18 +66,10 @@ t_col	send_ray(t_ray *ray, t_env *env)
 	ptr = env->formes;
 	while (ptr)
 	{
-		if (((ptr->type == 1) && (dist = hit_sphere(*ray, ptr->sph)) >= 0)
-				&& ((ray->dist > dist || ray->dist == -1) && dist >= 0)
+		if (((ptr->type != 0) && (dist = hit_shape()[ptr->type - 1](ray, ptr)) >= 0)
+				&& ((ray.dist > dist || ray.dist == -1) && dist >= 0)
 				&& ((j = i) || 1))
-			ray->dist = dist;
-		else if (((ptr->type == 2) && (dist = hit_plan(*ray, ptr->plan)) >= 0)
-				&& ((ray->dist > dist || ray->dist == -1) && dist >= 0)
-				&& ((j = i) || 1))
-			ray->dist = dist;
-		else if (((ptr->type == 3) && (dist = hit_cone(*ray, ptr->cone)) >= 0)
-				&& ((ray->dist > dist || ray->dist == -1) && dist >= 0)
-				&& ((j = i) || 1))
-			ray->dist = dist;
+			ray.dist = dist;
 		ptr = ptr->next;
 		i++;
 	}
@@ -86,11 +78,7 @@ t_col	send_ray(t_ray *ray, t_env *env)
 		return (BACK_COLOR);
 	while (j--)
 		ptr = ptr->next;
-	if (ptr->type == 1)
-		return (intersec_sphere(*ray, ptr, *env));
-	if (ptr->type == 2)
-		return (intersec_plan(*ray, ptr, *env));
-	if (ptr->type == 3)
-		return (intersec_cone(*ray, ptr, *env));
+	if (ptr->type != 0)
+		return (intersection()[ptr->type - 1](ray, ptr, *env));
 	return (BACK_COLOR);
 }
