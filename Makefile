@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/15 08:51:29 by mbeilles         ###   ########.fr        #
+#    Updated: 2018/02/18 14:39:54 by esuits           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,7 @@ DEPENDECIES = make -C $(PATH_LIB) $(INSTRUCTION) HIDDEN_FLAGS=$(HIDDEN_FLAGS);\
 DEP = -L $(PATH_LIB) -lft $(SDL_LIB_PATH)									\
 
 SRC = main.c																\
+	  singleton.c															\
 	  cam.c																	\
 	  formes.c																\
 			sphere.c														\

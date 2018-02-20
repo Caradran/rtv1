@@ -1,0 +1,51 @@
+
+
+//les infos necessaires pour le parsing pour chacun des objets :
+//camera first :
+
+camera
+	origin(x,x,x)
+	look_at(x, x, x)
+	transformations;
+//transformations = rotations or translations in any order
+//rotation(x, x, x, theta)
+//translations(x, x, x)
+
+//all shapes next :
+
+sphere
+	origin(x, x, x)
+	radius(x)
+	color(256, 256, 256)
+	shinyness(x)
+	transformations;
+
+plane
+	normal(x, x, x)
+	distance(x)
+	color(256, 256, 256)
+	shinyness(x)
+	transformations;
+
+cone
+	origin(x, x, x)
+	direction(x, x, x)
+	angle(x)
+	color(256, 256, 256)
+	shinyness(x)
+	transformations;
+
+cylinder
+	origin(x, x, x)
+	direction(x, x, x)
+	radius(x)
+	color(256, 256, 256)
+	shinyness(x)
+	transformations;
+
+//all lights to finish :
+
+light
+	origin(x, x, x)
+	color(256, 256, 256)
+	transformations;

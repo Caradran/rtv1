@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 13:48:18 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/16 19:15:19 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/19 09:18:38 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_cone	init_cone(t_vect org, t_vect dir, double theta, t_col col)
 	cone.col = col;
 	return (cone);
 }
-double	hit_cone(t_ray ray, t_cone cone)
+double	hit_cone(t_ray ray, t_formes *forme)
 {
 	double a;
 	double b;
@@ -30,17 +30,18 @@ double	hit_cone(t_ray ray, t_cone cone)
 	double delta;
 	t_vect oc;
 
-	k = tan(cone.theta / 2);
+	k = tan(forme->cone.theta / 2);
 	k = k * k;
-	oc = vect_sub(ray.org, cone.org);
+	oc = vect_sub(ray.org, forme->cone.org);
 	a = vect_mult_scale(ray.dir, ray.dir)
-		- (1 + k) * vect_mult_scale(ray.dir, cone.dir) *
-		vect_mult_scale(ray.dir, cone.dir);
+		- (1 + k) * vect_mult_scale(ray.dir, forme->cone.dir) *
+		vect_mult_scale(ray.dir, forme->cone.dir);
 	b = 2 * (vect_mult_scale(ray.dir, oc) - (1 + k) *
-			vect_mult_scale(ray.dir, cone.dir) *
-			vect_mult_scale(oc, cone.dir));
+			vect_mult_scale(ray.dir, forme->cone.dir) *
+			vect_mult_scale(oc, forme->cone.dir));
 	k = vect_mult_scale(oc, oc) - (1 + k) *
-		vect_mult_scale(oc, cone.dir) * vect_mult_scale(oc, cone.dir);
+		vect_mult_scale(oc, forme->cone.dir) *
+		vect_mult_scale(oc, forme->cone.dir);
 	delta = b * b - 4 * a * k;
 	if (delta <= 0.0)
 		return (-1.0);
@@ -56,12 +57,12 @@ t_vect	normal_cone(t_ray ray, t_cone cone)
 	t_vect norm;
 
 	hit = vect_add(ray.org, vect_scale(ray.dist, ray.dir));
-	oc = vect_sub(ray.org, cone.org);
-	if (vect_mult_scale(cone.dir, vect_sub(hit, oc)) < 0)
+	oc = vect_sub(hit, cone.org);
+	if (vect_mult_scale(cone.dir, oc) < 0)
 		cone.dir = vect_scale(-1.0, cone.dir);
 	k = 1 / cos(cone.theta / 2.0);
-	height = norme_vect(vect_scale(k, vect_add(hit, oc)));
-	norm = normal_vect(vect_sub(vect_add(hit, oc), vect_scale(height, cone.dir)));
+	height = norme_vect(vect_scale(k, oc));
+	norm = normal_vect(vect_sub(oc, vect_scale(height, cone.dir)));
 	return (norm);
 }
 
@@ -70,6 +71,7 @@ t_col	intersec_cone(t_ray ray, t_formes *obj, t_env env)
 	if (ray.dist >= 0.0)
 	{
 		obj->norm = normal_cone(ray, obj->cone);
+	//	return (mult_scale_col(vect_mult_scale(obj->norm, ray.dir), init_col(1,1,1,1)));
 		return (diffuse(env, obj, ray, obj->cone.col));
 	}
 	return (BACK_COLOR);

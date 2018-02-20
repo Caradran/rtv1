@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 18:43:33 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/15 10:45:10 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/18 14:34:07 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,10 @@ typedef struct	s_env
 	uint32_t	quit;
 }				t_env;
 
+typedef t_col (*t_func_col)();
+typedef double (*t_func_double)();
+
+
 void			print_objs(t_formes *formes);
 
 
@@ -164,13 +168,15 @@ t_cone			init_cone(t_vect org, t_vect dir, double theta, t_col col);
 t_col			intersec_plan(t_ray ray, t_formes *plan, t_env env);
 t_col			intersec_sphere(t_ray ray, t_formes *sph, t_env env);
 t_col			intersec_cone(t_ray ray, t_formes *cone, t_env env);
+t_func_col		*intersection(void);
 
 double			lambert(t_ray ray, t_vect norm, t_lights *lights);
 double			phong(t_ray ray, t_col col, t_vect norm, t_lights *lights);
 t_col			diffuse(t_env env, t_formes *forme, t_ray ray, t_col col);
 
 int				hit_obj(t_lgt lgt, t_ray ray, t_formes *formes, t_formes *obj);
-double			hit_cone(t_ray ray, t_cone cone);
-double			hit_sphere(t_ray ray, t_sph sph);
-double			hit_plan(t_ray ray, t_plan plan);
+double			hit_cone(t_ray ray, t_formes *cone);
+double			hit_sphere(t_ray ray, t_formes *sph);
+double			hit_plan(t_ray ray, t_formes *plan);
+t_func_double	*hit_shape(void);
 #endif

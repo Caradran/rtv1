@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 18:23:58 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/14 17:34:58 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/18 14:31:35 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_sph	init_sph(t_vect ctr, double r, t_col col)
 	return (sph);
 }
 
-double	hit_sphere(t_ray ray, t_sph sph)
+double	hit_sphere(t_ray ray, t_formes *formes)
 {
 	t_vect oc;
 	double a;
@@ -32,10 +32,10 @@ double	hit_sphere(t_ray ray, t_sph sph)
 	double c;
 	double delta;
 
-	oc = vect_sub(ray.org, sph.ctr);
+	oc = vect_sub(ray.org, formes->sph.ctr);
 	a = vect_mult_scale(ray.dir, ray.dir);
 	b = 2.0 * vect_mult_scale(ray.dir, oc);
-	c = vect_mult_scale(oc, oc) - (sph.r * sph.r);
+	c = vect_mult_scale(oc, oc) - (formes->sph.r * formes->sph.r);
 	delta = b * b - 4.0 * a * c;
 	if (delta <= 0.0)
 		return (-1.0);
