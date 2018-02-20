@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/03 16:29:07 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/20 12:06:55 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/20 12:57:22 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ t_vect	normal_cyl(t_ray ray, t_cyl cyl)
 
 	hit = vect_add(ray.org, vect_scale(ray.dist, ray.dir));
 	oc = vect_sub(hit, cyl.pos);
-//	if (vect_mult_scale(cyl.dir, vect_sub(hit, oc)) < 0)
-//		cyl.dir = vect_scale(-1.0, cyl.dir);
-	height = norme_vect(vect_dot(cyl.dir, hit));
+	if (vect_mult_scale(cyl.dir, oc) < 0)
+		cyl.dir = vect_scale(-1.0, cyl.dir);
+	height = norme_vect(vect_dot(cyl.dir, oc));
 	norm = normal_vect(vect_sub(oc, vect_scale(height, cyl.dir)));
 	return (norm);
 }
@@ -66,7 +66,7 @@ t_col	intersec_cyl(t_ray ray, t_formes *obj, t_env env)
 	if (ray.dist >= 0.0)
 	{
 		obj->norm = normal_cyl(ray, obj->cyl);
-		return (mult_scale_col(vect_mult_scale(obj->norm, ray.dir), init_col(1,1,1,1)));
+//		return (mult_scale_col(vect_mult_scale(obj->norm, ray.dir), init_col(1,1,1,1)));
 		return (diffuse(env, obj, ray, obj->cyl.col));
 	}
 	return (BACK_COLOR);
