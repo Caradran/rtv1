@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:23:53 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/15 20:55:40 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/20 19:08:37 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int				init_env(t_env *env)
 	env->rpp_threshold = 1;
 	env->refresh = 1;
 	env->pers = 1.0;
-	env->expo = 1.0;
+	env->expo = 4 * M_PI;
 	return (1);
 }
 
