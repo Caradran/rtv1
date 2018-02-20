@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 17:34:43 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/15 20:36:43 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/20 19:11:13 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double	phong(t_ray ray, t_col col, t_vect norm, t_lights *lights)
 	phongterm = vect_mult_scale(phongdir, ray.dir);
 	if (phongterm < 0.0)
 		phongterm = 0.0;
-	phongterm = (col.s * pow(phongterm, 50.0) * lgt.col.s);
+	phongterm = (col.s * pow(phongterm, 100.0) * lgt.col.s);
 	return (phongterm);
 }
 
@@ -43,12 +43,13 @@ t_col	diffuse(t_env env, t_formes *forme, t_ray ray, t_col col_obj)
 	double		lmbrt;
 	t_col		col;
 	t_col		spec;
+	double		dist;
 
 	col = BACK_COLOR;
 	spec = col;
 	while (env.lights)
 	{
-		if (hit_obj(env.lights->lgt, ray, env.formes, forme))
+		if ((dist = (hit_obj(env.lights->lgt, ray, env.formes, forme))) < 0)
 		{
 			env.lights = env.lights->next;
 			continue ;
@@ -56,9 +57,11 @@ t_col	diffuse(t_env env, t_formes *forme, t_ray ray, t_col col_obj)
 		lmbrt = lambert(ray, forme->norm, env.lights);
 		if (lmbrt < 0.0)
 			lmbrt = 0;
-		col = addcol(interpolcol(BACK_COLOR, mult_scale_col(env.expo, multcol(
-					col_obj, env.lights->lgt.col)), lmbrt * lmbrt), col);
-		spec = addcol(spec, mult_scale_col(env.expo, interpolcol(BACK_COLOR,
+		col = addcol(interpolcol(BACK_COLOR,
+				mult_scale_col(env.expo / (dist * dist), multcol(col_obj,
+				env.lights->lgt.col)), lmbrt * lmbrt), col);
+		spec = addcol(spec, mult_scale_col(env.expo / (dist * dist) ,
+					interpolcol(BACK_COLOR,
 			env.lights->lgt.col, phong(ray, col_obj, forme->norm,
 				env.lights))));
 		env.lights = env.lights->next;

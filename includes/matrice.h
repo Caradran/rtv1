@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 18:43:33 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/20 11:42:30 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/20 19:00:41 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ double			lambert(t_ray ray, t_vect norm, t_lights *lights);
 double			phong(t_ray ray, t_col col, t_vect norm, t_lights *lights);
 t_col			diffuse(t_env env, t_formes *forme, t_ray ray, t_col col);
 
-int				hit_obj(t_lgt lgt, t_ray ray, t_formes *formes, t_formes *obj);
+double			hit_obj(t_lgt lgt, t_ray ray, t_formes *formes, t_formes *obj);
 double			hit_cone(t_ray ray, t_formes *cone);
 double			hit_sphere(t_ray ray, t_formes *sph);
 double			hit_plan(t_ray ray, t_formes *plan);
