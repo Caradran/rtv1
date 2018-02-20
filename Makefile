@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/18 14:39:54 by esuits           ###   ########.fr        #
+#    Updated: 2018/02/20 11:41:57 by esuits           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,7 @@ SRC = main.c																\
 			sphere.c														\
 			plan.c															\
 			cone.c															\
+			cylindre.c														\
 	  light.c																\
 	  matop.c																\
 	  ray.c																	\

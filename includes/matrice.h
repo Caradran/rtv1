@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 18:43:33 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/18 14:34:07 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/20 11:42:30 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,14 @@ typedef struct	s_cone
 	t_col	col;
 }				t_cone;
 
+typedef struct	s_cyl
+{
+	t_vect	pos;
+	t_vect	dir;
+	double	r;
+	t_col	col;
+}				t_cyl;
+
 typedef struct	s_formes
 {
 	struct s_formes		*next;
@@ -89,6 +97,7 @@ typedef struct	s_formes
 	t_sph				sph;
 	t_plan				plan;
 	t_cone				cone;
+	t_cyl				cyl;
 	t_vect				norm;
 }				t_formes;
 
@@ -164,10 +173,12 @@ t_lights		*init_lights(t_env *env);
 t_plan			init_plan(t_vect nrml, double dst, t_col col);
 t_sph			init_sph(t_vect ctr, double r, t_col col);
 t_cone			init_cone(t_vect org, t_vect dir, double theta, t_col col);
+t_cyl			init_cyl(t_vect pos, t_vect dir, double r, t_col col);
 
 t_col			intersec_plan(t_ray ray, t_formes *plan, t_env env);
 t_col			intersec_sphere(t_ray ray, t_formes *sph, t_env env);
 t_col			intersec_cone(t_ray ray, t_formes *cone, t_env env);
+t_col			intersec_cyl(t_ray ray, t_formes *cyl, t_env env);
 t_func_col		*intersection(void);
 
 double			lambert(t_ray ray, t_vect norm, t_lights *lights);
@@ -178,5 +189,7 @@ int				hit_obj(t_lgt lgt, t_ray ray, t_formes *formes, t_formes *obj);
 double			hit_cone(t_ray ray, t_formes *cone);
 double			hit_sphere(t_ray ray, t_formes *sph);
 double			hit_plan(t_ray ray, t_formes *plan);
+double			hit_cyl(t_ray ray, t_formes *cyl);
+
 t_func_double	*hit_shape(void);
 #endif

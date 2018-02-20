@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 03:32:32 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/18 14:34:28 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/20 12:02:27 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,25 @@ t_col	send_ray(t_ray ray, t_env *env)
 	t_formes	*ptr;
 	double		dist;
 	int			i;
-	int			j;
+	t_formes	*nearest;
 
 	i = 0;
-	j = -1;
 	ptr = env->formes;
+	nearest = NULL;
 	while (ptr)
 	{
 		if (((ptr->type != 0) && (dist = hit_shape()[ptr->type - 1](ray, ptr)) >= 0)
-				&& ((ray.dist > dist || ray.dist == -1) && dist >= 0)
-				&& ((j = i) || 1))
+				&& ((ray.dist > dist || ray.dist == -1) && dist >= 0))
+		{
+			nearest = ptr;
 			ray.dist = dist;
+		}
 		ptr = ptr->next;
 		i++;
 	}
-	ptr = env->formes;
-	if (j == -1)
+	if (!nearest)
 		return (BACK_COLOR);
-	while (j--)
-		ptr = ptr->next;
-	if (ptr->type != 0)
-		return (intersection()[ptr->type - 1](ray, ptr, *env));
+	if (nearest->type != 0)
+		return (intersection()[nearest->type - 1](ray, nearest, *env));
 	return (BACK_COLOR);
 }
