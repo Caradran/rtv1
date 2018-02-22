@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 22:28:58 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/22 22:29:48 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/22 22:41:48 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,23 @@ inline int32_t				update_scope(t_token *t, t_token_info *i
 		if (t[n].state == LEXER_STATE_SCOPE_UP)
 		{
 			changes++;
-			*scope += t.len;
+			i->scope += t.len;
 		}
 		if (t[n].state == LEXER_STATE_SCOPE_DOWN)
 		{
 			changes++;
-			*scope -= t.len;
+			i->scope -= t.len;
 		}
 	}
 	return (changes);
+}
+
+inline int32_t				parse_number(t_token t, double *d)
+{
+	char					*s;
+
+	*d = ft_strtod(t.str, &s);
+	if (s == t.str)
+		return (PARSER_ERROR_SYNTAX);
+	return (PARSER_VALID);
 }
