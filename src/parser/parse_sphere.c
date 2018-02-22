@@ -6,22 +6,21 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/03 20:57:13 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/11 12:49:05 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/22 22:17:03 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static inline t_formes		*create_sphere(t_formes *next, t_vect t
-											, t_col col, double r)
+static inline t_formes		*create_sphere(t_formes *next, t_sph sphere)
 {
 	t_formes				*f;
 
 	if (!(f = (t_formes*)malloc(sizeof(t_formes))))
 		exit(EXIT_FAILURE);
-	f = ft_memcpy(f, &((t_formes){next, 2, (t_sph){t, col, r}
-			, (t_plan){(t_vect){0, 0, 0}, 0, (t_col){0, 0, 0, 0}}})
-			, sizeof(t_formes));
+	f->sph = sphere;
+	f->next = next;
+	f->type = 1;
 	return (f);
 }
 
@@ -33,24 +32,33 @@ static inline void			get_sphere_tokens(t_token_info *i, t_token t
 	while (++*n < 15)
 	{
 		tk[*n] = get_next_token(i);
-		if (tk[*n].state == LEXER_STATE_MAX && *n < 14)
+		if (tk[*n].state == LEXER_STATE_MAX)
 			return ;
 	}
 }
 
-static inline int32_t		update_scope(t_token t, int32_t *scope)
+static inline int32_t		update_scope(t_token *t, t_token_info *i
+											, uint32_t token_number)
 {
-	if (t.state == LEXER_STATE_SCOPE_UP)
+	uint32_t				n;
+	uint32_t				changes;
+
+	n = ~0U;
+	changes = 0;
+	while (++n < token_number)
 	{
-		*scope += t.len;
-		return (1);
+		if (t[n].state == LEXER_STATE_SCOPE_UP)
+		{
+			changes++;
+			*scope += t.len;
+		}
+		if (t[n].state == LEXER_STATE_SCOPE_DOWN)
+		{
+			changes++;
+			*scope -= t.len;
+		}
 	}
-	if (t.state == LEXER_STATE_SCOPE_DOWN)
-	{
-		*scope -= t.len;
-		return (1);
-	}
-	return (0);
+	return (changes);
 }
 
 /*
@@ -61,25 +69,15 @@ uint32_t					parse_sphere(t_token t, t_token_info *i, t_env *env)
 {
 	t_token					tk[16];
 	uint32_t				token_number;
-	uint32_t				n;
-	t_vect					v;
-	double					r;
-	t_col					c;
+	uint32_t				scope_changes;
+	t_formes				f;
 
 	get_sphere_tokens(i, t, &token_number, tk);
 	if (token_number < 14)
 		return (PARSER_ERROR_SYNTAX);
-	n = 0;
-	while (update_scope(tk[n], &(i->scope)))
-		n++;
-	if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str, "vector", 6)
-			&& (n += parse_vector(tk[n], i, &v)))
-		if (tk[n].state == LEXER_STATE_PARAMETER_NUMBER
-				&& (r = ft_strtod(tk[n].str, &(tk[n].str))))
-			if (n++ && tk[n].state == LEXER_STATE_OBJECT
-					&& ft_strnequ(tk[n].str, "color", 5))
-				if (parse_color(tk[n], i, &c)
-						&& create_sphere(env->formes, v, c, r))
-					return (PARSER_VALID);
-	return (PARSER_ERROR_SYNTAX);
+	if (update_scope(tk, i, token_number) != 6)
+		return (PARSER_ERROR_SYNTAX);
+	
+	env->formes = create_sphere(env->formes, f.sph);
+	return (PARSER_VALID);
 }
