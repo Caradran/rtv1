@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 13:48:18 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/19 09:18:38 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/22 20:47:16 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_cone	init_cone(t_vect org, t_vect dir, double theta, t_col col)
 	cone.col = col;
 	return (cone);
 }
+
 double	hit_cone(t_ray ray, t_formes *forme)
 {
 	double a;
@@ -71,7 +72,6 @@ t_col	intersec_cone(t_ray ray, t_formes *obj, t_env env)
 	if (ray.dist >= 0.0)
 	{
 		obj->norm = normal_cone(ray, obj->cone);
-	//	return (mult_scale_col(vect_mult_scale(obj->norm, ray.dir), init_col(1,1,1,1)));
 		return (diffuse(env, obj, ray, obj->cone.col));
 	}
 	return (BACK_COLOR);

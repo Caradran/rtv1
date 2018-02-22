@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:10:24 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/17 21:13:43 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/22 21:19:58 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 # define KEY_MAX			11
 
-typedef void				(t_key_func_proto)(t_env *env);
 typedef void				(*t_key_func)(t_env *);
 
 typedef struct				s_key
@@ -37,15 +36,15 @@ SDL_Scancode				*create_codes(int32_t codes, ...);
 t_key						create_key(uint32_t keys, SDL_Scancode *codes
 										, t_key_func f);
 
-t_key_func_proto			exit_rt;
-t_key_func_proto			toggle_fullscreen;
-t_key_func_proto			perspepective_up;
-t_key_func_proto			perspepective_down;
-t_key_func_proto			rpp_up;
-t_key_func_proto			rpp_down;
-t_key_func_proto			expo_up;
-t_key_func_proto			expo_down;
-t_key_func_proto			threshold_up;
-t_key_func_proto			threshold_down;
+void						exit_rt(t_env *env);
+void						toggle_fullscreen(t_env *env);
+void						perspepective_up(t_env *env);
+void						perspepective_down(t_env *env);
+void						rpp_up(t_env *env);
+void						rpp_down(t_env *env);
+void						expo_up(t_env *env);
+void						expo_down(t_env *env);
+void						threshold_up(t_env *env);
+void						threshold_down(t_env *env);
 
 #endif

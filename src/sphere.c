@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 18:23:58 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/18 14:31:35 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/22 20:04:12 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ double	hit_sphere(t_ray ray, t_formes *formes)
 
 t_col	intersec_sphere(t_ray ray, t_formes *sphere, t_env env)
 {
-
 	if (ray.dist >= 0.0)
 	{
 		sphere->norm = normal_vect(

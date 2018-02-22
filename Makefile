@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/20 11:41:57 by esuits           ###   ########.fr        #
+#    Updated: 2018/02/22 21:24:02 by esuits           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ SRC = main.c																\
 	  singleton.c															\
 	  cam.c																	\
 	  formes.c																\
+	  col.c																	\
 			sphere.c														\
 			plan.c															\
 			cone.c															\
@@ -88,9 +89,10 @@ SRC = main.c																\
 	  light.c																\
 	  matop.c																\
 	  ray.c																	\
-	  	diffuse.c															\
+	  diffuse.c																\
 	  sp_mat.c																\
 	  vect.c																\
+	  vect2.c																\
 	  raycast_layer.c														\
 	  print_obj.c															\
 			parser.c														\
@@ -101,6 +103,7 @@ SRC = main.c																\
 			parse_vector.c													\
 	  keys_utils.c															\
 	  keys_functions.c														\
+	  keys_functions_2.c													\
 	  keys_handling.c														\
 
 INC = libft.h																\

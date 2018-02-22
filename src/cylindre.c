@@ -6,13 +6,14 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/03 16:29:07 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/20 15:43:40 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/22 20:50:21 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_cyl	init_cyl(t_vect pos, t_vect dir, double r, t_col col){
+t_cyl	init_cyl(t_vect pos, t_vect dir, double r, t_col col)
+{
 	return ((t_cyl){pos, normal_vect(dir), r, col});
 }
 
@@ -30,14 +31,6 @@ double	hit_cyl(t_ray ray, t_formes *forme)
 					forme->cyl.pos)));
 	tmp = vect_mult(forme->cyl.dir, vect_sub(ray.org, forme->cyl.pos));
 	c = vect_mult_scale(tmp, tmp) - forme->cyl.r * forme->cyl.r;
-/*	oc = vect_sub(ray.org, forme->cyl.pos);
-	a = vect_mult_scale(ray.dir, ray.dir) - (vect_mult_scale(ray.dir, forme->cyl.dir)
-			* vect_mult_scale(ray.dir, forme->cyl.dir));
-	b = 2.0 * (vect_mult_scale(ray.dir, oc) - (vect_mult_scale(ray.dir,
-					forme->cyl.dir)
-			* vect_mult_scale(oc, forme->cyl.dir)));
-	c = vect_mult_scale(oc, oc) - vect_mult_scale(vect_scale(forme->cyl.r, oc)
-			, vect_scale(forme->cyl.r, oc)) - forme->cyl.r * forme->cyl.r;*/
 	delta = b * b - 4.0 * a * c;
 	if (delta <= 0.0)
 		return (-1.0);
@@ -63,8 +56,6 @@ t_col	intersec_cyl(t_ray ray, t_formes *obj, t_env env)
 	if (ray.dist >= 0.0)
 	{
 		obj->norm = normal_cyl(ray, obj->cyl);
-//		return (init_col(1,1,1,1));
-	//	return (mult_scale_col(1 - vect_mult_scale(obj->norm, ray.dir), init_col(1,1,1,1)));
 		return (diffuse(env, obj, ray, obj->cyl.col));
 	}
 	return (BACK_COLOR);

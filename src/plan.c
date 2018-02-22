@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:12:47 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/18 14:30:04 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/22 20:41:34 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ double	hit_plan(t_ray ray, t_formes *formes)
 	b = vect_mult_scale(formes->plan.nrml, vect_add(ray.org,
 				vect_scale(formes->plan.dst, formes->plan.nrml)));
 	return (-b / a);
-	}
+}
 
 t_col	intersec_plan(t_ray ray, t_formes *pln, t_env env)
 {

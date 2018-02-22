@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 18:43:33 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/20 19:00:41 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/22 21:19:29 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MATRICE_H
 
 # include <SDL.h>
-# include "formes.h"
 
 typedef struct	s_mat
 {
@@ -126,12 +125,10 @@ typedef struct	s_env
 	uint32_t	quit;
 }				t_env;
 
-typedef t_col (*t_func_col)();
-typedef double (*t_func_double)();
-
+typedef t_col	(*t_func_col)();
+typedef double	(*t_func_double)();
 
 void			print_objs(t_formes *formes);
-
 
 void			add_mat(t_mat *a, t_mat *b);
 void			sub_mat(t_mat *a, t_mat *b);
