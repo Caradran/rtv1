@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/03 20:57:30 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/22 22:26:35 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/22 22:35:39 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ uint32_t					parse_vector(t_token t, t_token_info *i
 	char					*s;
 
 	j = 0;
-	if (!ft_strnequ(t.str, "vector", 6))
-		return (PARSER_ERROR_SYNTAX);
 	while (42)
 	{
 		t = get_next_token(i);
