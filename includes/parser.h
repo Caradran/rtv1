@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:08:41 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/11 12:40:35 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/22 22:32:08 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,9 @@ uint32_t					parse_cone(t_token t, t_token_info *i, t_env *e);
 uint32_t					parse_cam(t_token t, t_token_info *i, t_env *e);
 uint32_t					parse_cylinder(t_token t, t_token_info *i
 		, t_env *e);
+
+int32_t						update_scope(t_token *t, t_token_info *i
+											, uint32_t token_number);
 
 /*
 ** =============================================================================
