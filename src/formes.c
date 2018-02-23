@@ -6,44 +6,47 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 02:21:45 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/20 19:24:45 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/23 08:26:00 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include "parser.h"
 
 t_formes		*init_formes(t_env *env)
 {
-	t_formes	*formes;
+	/*t_formes	*formes;*/
 
-	(void)env;
-	if (!(formes = malloc(sizeof(t_formes))))
-		return (NULL);
-	formes->type = 2;
-	formes->plan = init_plan(init_vect(-1, 0, 0), 2, init_col(0.2, 0.6, 0.5, 1));
-	if (!(formes->next = malloc(sizeof(t_formes))))
-		return (NULL);
-	formes->next->type = 3;
-	formes->next->cone = init_cone(init_vect(1, 0, 0),
-			init_vect(0, 1, 1), M_PI / 3,  init_col(1, 0, 1, 1));
-	if (!(formes->next->next = malloc(sizeof(t_formes))))
-		return (NULL);
-	formes->next->next->type = 1;
-	formes->next->next->sph = init_sph(init_vect(1, 0.3, 0.3), 0.3, init_col(0,1,1,0));
-	if (!(formes->next->next->next = malloc(sizeof(t_formes))))
-		return (NULL);
-	formes->next->next->next->type = 4;
-	formes->next->next->next->cyl = init_cyl(init_vect(1, 0, 0),
-			init_vect(0.5,1,0), 0.2, init_col(1,0.5,1,0));
-	if (!(formes->next->next->next->next = malloc(sizeof(t_formes))))
-		return (NULL);
-	formes->next->next->next->next->type = 4;
-	formes->next->next->next->next->cyl =
-		init_cyl(init_vect(1, 0, 0),
-				init_vect(0,0,1), 0.2, init_col(1, 1, 0.5, 1));
-	formes->next->next->next->next->next = NULL;
-//	print_obj(formes);
-	return (formes);
+	/*(void)env;*/
+	/*if (!(formes = malloc(sizeof(t_formes))))*/
+		/*return (NULL);*/
+	/*formes->type = 2;*/
+	/*formes->plan = init_plan(init_vect(-1, 0, 0), 2, init_col(0.2, 0.6, 0.5, 1));*/
+	/*if (!(formes->next = malloc(sizeof(t_formes))))*/
+		/*return (NULL);*/
+	/*formes->next->type = 3;*/
+	/*formes->next->cone = init_cone(init_vect(1, 0, 0),*/
+			/*init_vect(0, 1, 1), M_PI / 3,  init_col(1, 0, 1, 1));*/
+	/*if (!(formes->next->next = malloc(sizeof(t_formes))))*/
+		/*return (NULL);*/
+	/*formes->next->next->type = 1;*/
+	/*formes->next->next->sph = init_sph(init_vect(1, 0.3, 0.3), 0.3, init_col(0,1,1,0));*/
+	/*if (!(formes->next->next->next = malloc(sizeof(t_formes))))*/
+		/*return (NULL);*/
+	/*formes->next->next->next->type = 4;*/
+	/*formes->next->next->next->cyl = init_cyl(init_vect(1, 0, 0),*/
+			/*init_vect(0.5,1,0), 0.2, init_col(1,0.5,1,0));*/
+	/*if (!(formes->next->next->next->next = malloc(sizeof(t_formes))))*/
+		/*return (NULL);*/
+	/*formes->next->next->next->next->type = 4;*/
+	/*formes->next->next->next->next->cyl =*/
+		/*init_cyl(init_vect(1, 0, 0),*/
+				/*init_vect(0,0,1), 0.2, init_col(1, 1, 0.5, 1));*/
+	/*formes->next->next->next->next->next = NULL;*/
+	if ((parse_file("scenes/test1.bgnouf", env)) != PARSER_VALID)
+		ft_putstr(HD"Parser exited with error syntax\n"C_NRM);
+	print_obj(env->formes);
+	return (env->formes);
 }
 
 t_lights		*init_lights(t_env *env)
@@ -67,7 +70,7 @@ t_lights		*init_lights(t_env *env)
 	lights->next->next->lgt = init_lgt(init_col(0, 1, 0, 1),
 			init_vect(-10, n * 0.5, n * -0.866));
 	lights->next->next->next = NULL;
-	return (lights);
+	return (NULL);
 }
 
 double			hit_obj(t_lgt lgt, t_ray camray, t_formes *formes,

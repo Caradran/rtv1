@@ -1,3 +1,11 @@
-cam(vector(1, 0, 0), vector(0, 0, 0));
+cam(pos(0, 0, 0), look_at(1, 0, 0));
 
-sphere(vector(2, 0, 0), color(123456));
+sphere(pos(2, 0, 0), color(1, 1, 1, 1), 0.2);
+cone(pos(2, 0, 0), dir(0, 0, 10), color(1, 1, 1, 1), 0.2);
+cylinder(pos(3, -0.2, 0), 0.2, dir(0, 0, 1), color(1, 1, 1, 1));
+plane(normal(2, 0, 0), color(1, 1, 1, 1), 0.2);
+
+light(color(1, 1, 1, 1)pos(0, 0, 0));
+light(color(1, 1, 1, 1)pos(0, 0, 0));
+light(color(1, 1, 1, 1)pos(0, 0, 0));
+light(color(1, 1, 1, 1)pos(0, 0, 0));

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:49:14 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/22 20:43:53 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/23 08:10:14 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_parser_pattern		*get_parser_patterns(void)
 		(t_parser_pattern){"sphere", 6, &parse_sphere}
 		, (t_parser_pattern){"plane", 5, &parse_plane}
 		, (t_parser_pattern){"cone", 4, &parse_cone}
-		, (t_parser_pattern){"cylinder", 9, &parse_cylinder}
+		, (t_parser_pattern){"cylinder", 8, &parse_cylinder}
 		, (t_parser_pattern){"cam", 3, &parse_cam}
 		, (t_parser_pattern){"light", 5, &parse_light}
 	};
@@ -35,6 +35,7 @@ uint32_t					parse_file(char *path, t_env *env)
 
 	i = create_info_token(path);
 	p = get_parser_patterns();
+	printf(HD"Parsing start\n"C_NRM);
 	while (42)
 	{
 		t = get_next_token(&i);
@@ -44,8 +45,12 @@ uint32_t					parse_file(char *path, t_env *env)
 		if (t.state == LEXER_STATE_OBJECT)
 			while (++c < PARSER_PATTERN_MAX)
 				if (ft_strnequ(p[c].str, t.str, p[c].len))
-					if (!(p[c].func(t, &i, env)))
+				{
+					printf(HD"Parsing a '%.*s' with function n*%d\n"C_NRM, t.len, t.str, c + 1);
+					if ((p[c].func(t, &i, env)))
 						return (PARSER_ERROR_SYNTAX);
+					printf(HD"Parsing of '%.*s' done.\n\n"C_NRM, t.len, t.str);
+				}
 	}
 	return (PARSER_VALID);
 }
