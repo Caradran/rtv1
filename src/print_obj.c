@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/03 20:55:14 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/23 06:43:31 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/23 09:32:02 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,25 @@ void	print_obj(t_formes *formes)
 				formes->cyl.col.r, formes->cyl.col.g, formes->cyl.col.b, formes->cyl.col.s,
 				formes->cyl.r);
 		formes = formes->next;
+	}
+}
+
+void		print_cam(t_cam cam)
+{
+	printf("Camera :\n -postion:\n  -x : %12f\n  -y : %12f\n  -z : %12f\n front :\n  -x : %12f\n  -y : %12f\n  -z : %12f\n right :\n  -x : %12f\n  -y : %12f\n  -z : %12f\n down :\n  -x : %12f\n  -y : %12f\n  -z : %12f\n\n"
+			, cam.org.x, cam.org.y, cam.org.z
+			, cam.frt.x, cam.frt.y, cam.frt.z
+			, cam.rgt.x, cam.rgt.y, cam.rgt.z
+			, cam.dwn.x, cam.dwn.y, cam.dwn.z);
+}
+
+void		print_lights(t_lights *lights)
+{
+	while (lights)
+	{
+		printf("Light :\n -postion:\n  -x : %12f\n  -y : %12f\n  -z : %12f\n -color :\n  -r : %12f\n  -g : %12f\n  -b : %12f\n  -s : %12f\n\n"
+				, lights->lgt.vect.x, lights->lgt.vect.y, lights->lgt.vect.z
+				, lights->lgt.col.r, lights->lgt.col.g, lights->lgt.col.b, lights->lgt.col.s);
+		lights = lights->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:54:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/22 21:29:32 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/23 06:54:21 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ t_key					*init_keys(void)
 
 	if (!(k = (t_key*)malloc((KEY_MAX) * sizeof(t_key))))
 		exit(EXIT_FAILURE);
-	k[0] = create_key(2, create_codes(2, SDL_SCANCODE_ESCAPE,
-				SDL_SCANCODE_LGUI), &exit_rt);
+	k[0] = create_key(1, create_codes(1, SDL_SCANCODE_ESCAPE), &exit_rt);
 	k[1] = create_key(2, create_codes(2, SDL_SCANCODE_W,
 				SDL_SCANCODE_LGUI), &exit_rt);
 	k[2] = create_key(2, create_codes(2, SDL_SCANCODE_LGUI,

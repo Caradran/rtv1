@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:16 by mbeilles          #+#    #+#              #
-#    Updated: 2018/02/22 21:24:02 by esuits           ###   ########.fr        #
+#    Updated: 2018/02/22 23:16:57 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,11 +96,17 @@ SRC = main.c																\
 	  raycast_layer.c														\
 	  print_obj.c															\
 			parser.c														\
+				parse_vector.c												\
+				parse_color.c												\
+				parser_toolkit.c											\
 			lexer.c															\
 			tokenizer.c														\
-			parse_color.c													\
 			parse_sphere.c													\
-			parse_vector.c													\
+			parse_plane.c													\
+			parse_cone.c													\
+			parse_cylinder.c												\
+			parse_cam.c														\
+			parse_light.c													\
 	  keys_utils.c															\
 	  keys_functions.c														\
 	  keys_functions_2.c													\

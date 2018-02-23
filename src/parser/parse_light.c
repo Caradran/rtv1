@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 11:34:05 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/23 09:15:19 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/23 09:20:19 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ uint32_t					parse_light(t_token t, t_token_info *i, t_env *env)
 	uint32_t				ret;
 	t_lgt					light;
 
-	if (get_tokens(i, t, token_number, tk) || token_number[0] < 15)
+	if (get_tokens(i, t, token_number, tk) || token_number[0] < 14)
 		return (PARSER_ERROR_SYNTAX);
 	print_tokens(tk, token_number[0] + 1);
 	n = ~0U;

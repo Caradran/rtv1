@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 02:21:45 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/23 08:26:00 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/23 09:33:22 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_formes		*init_formes(t_env *env)
 	if ((parse_file("scenes/test1.bgnouf", env)) != PARSER_VALID)
 		ft_putstr(HD"Parser exited with error syntax\n"C_NRM);
 	print_obj(env->formes);
+	print_cam(env->cam);
+	print_lights(env->lights);
 	return (env->formes);
 }
 
