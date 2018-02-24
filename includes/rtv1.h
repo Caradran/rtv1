@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:33:28 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/24 22:17:06 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/24 22:23:15 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdint.h>
 # include <math.h>
 # include <SDL.h>
-# include "vectors.h"
 # include "libft.h"
 # include "matrice.h"
 
