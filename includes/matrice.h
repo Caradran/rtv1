@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 18:43:33 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/22 21:19:29 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/23 09:32:34 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ typedef t_col	(*t_func_col)();
 typedef double	(*t_func_double)();
 
 void			print_objs(t_formes *formes);
+void			print_cam(t_cam cam);
+void			print_lights(t_lights *lights);
 
 void			add_mat(t_mat *a, t_mat *b);
 void			sub_mat(t_mat *a, t_mat *b);

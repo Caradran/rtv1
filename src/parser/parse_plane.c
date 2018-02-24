@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 11:31:33 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/23 06:47:18 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/24 22:07:43 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,11 @@ uint32_t					parse_plane(t_token t, t_token_info *i, t_env *env)
 	ret = PARSER_VALID;
 	while (++n < token_number)
 	{
-		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str, "normal", 3))
+		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str
+					, "normal", 3))
 			ret = parse_vector(tk + n, 6, &(f.plan.nrml), &n);
-		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str, "color", 5))
+		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str
+					, "color", 5))
 			ret = parse_color(tk + n, 7, &(f.plan.col), &n);
 		if (tk[n].state == LEXER_STATE_PARAMETER_NUMBER)
 			ret = parse_number(tk[n], &(f.plan.dst), &n);

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 11:34:05 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/23 09:20:19 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/24 22:17:35 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,13 @@ uint32_t					parse_light(t_token t, t_token_info *i, t_env *env)
 
 	if (get_tokens(i, t, token_number, tk) || token_number[0] < 14)
 		return (PARSER_ERROR_SYNTAX);
-	print_tokens(tk, token_number[0] + 1);
 	n = ~0U;
 	ret = PARSER_VALID;
 	while (++n < token_number[0])
 	{
-		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str, "pos", 3))
+		if (tk[n].state == 1 << 4 && ft_strnequ(tk[n].str, "pos", 3))
 			ret = parse_vector(tk + n, 6, &(light.vect), &n);
-		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str, "color", 5))
+		if (tk[n].state == 1 << 4 && ft_strnequ(tk[n].str, "color", 5))
 			ret = parse_color(tk + n, 7, &(light.col), &n);
 		if (ret != PARSER_VALID)
 			return (ret);

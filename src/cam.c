@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 03:58:39 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/22 20:50:45 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/24 21:56:02 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 t_cam	init_cam(t_vect org, t_vect look_at)
 {
 	t_cam	cam;
-	t_vect	vect;
 
 	cam.org = org;
 	cam.frt = normal_vect(vect_sub(look_at, org));

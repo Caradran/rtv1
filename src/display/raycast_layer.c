@@ -6,20 +6,21 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 20:49:06 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/15 11:58:57 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/24 22:14:34 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 #include "matrice.h"
 
-static inline void	set_pixels(SDL_Surface *s, uint32_t x, uint32_t y
-								, int32_t rpp, t_col col)
+static inline void	set_pixels(uint32_t x, uint32_t y, int32_t rpp, t_col col)
 {
 	int32_t			rp;
 	int32_t			ro;
+	SDL_Surface		*s;
 
 	rp = ~0U;
+	s = (get_env())->surface;
 	while (++rp < rpp)
 	{
 		ro = ~0U;
@@ -66,7 +67,7 @@ void				raycast_calculate_surface(t_env *env, uint32_t rpp)
 		x = 0;
 		while (x < s->w)
 		{
-			set_pixels(s, x, y, (int32_t)rpp
+			set_pixels(x, y, (int32_t)rpp
 	, send_ray(calculate_ray(x + (rpp >> 1), y + (rpp >> 1), env), env));
 			x += rpp;
 		}

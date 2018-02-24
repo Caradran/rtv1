@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 11:36:00 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/23 08:18:41 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/24 22:06:26 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ uint32_t					parse_cone(t_token t, t_token_info *i, t_env *env)
 	ret = PARSER_VALID;
 	while (++n < token_number[0])
 	{
-		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str, "pos", 3))
+		if (tk[n].state == 1 << 4 && ft_strnequ(tk[n].str, "pos", 3))
 			ret = parse_vector(tk + n, 6, &(f.cone.org), &n);
-		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str, "dir", 3))
+		if (tk[n].state == 1 << 4 && ft_strnequ(tk[n].str, "dir", 3))
 			ret = parse_vector(tk + n, 6, &(f.cone.dir), &n);
-		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str, "color", 5))
+		if (tk[n].state == 1 << 4 && ft_strnequ(tk[n].str, "color", 5))
 			ret = parse_color(tk + n, 7, &(f.cone.col), &n);
 		if (tk[n].state == LEXER_STATE_PARAMETER_NUMBER)
 			ret = parse_number(tk[n], &(f.cone.theta), &n);

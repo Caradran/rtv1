@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:08:41 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/22 22:32:08 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/24 22:17:18 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@
 typedef enum				e_lexer_state
 {
 	LEXER_STATE_SEPARATOR = 0,
-	LEXER_STATE_PARAMETER_NUMBER,
-	LEXER_STATE_PARAMETER_STRING,
-	LEXER_STATE_SCOPE_UP,
-	LEXER_STATE_SCOPE_DOWN,
-	LEXER_STATE_OBJECT,
-	LEXER_STATE_MAX
+	LEXER_STATE_PARAMETER_NUMBER = 1 << 0,
+	LEXER_STATE_PARAMETER_STRING = 1 << 1,
+	LEXER_STATE_SCOPE_UP = 1 << 2,
+	LEXER_STATE_SCOPE_DOWN = 1 << 3,
+	LEXER_STATE_OBJECT = 1 << 4,
+	LEXER_STATE_MAX = 1 << 5
 }							t_lexer_state;
 
 typedef struct				s_lexer_pattern
@@ -98,17 +98,23 @@ typedef struct				s_parser_pattern
 
 t_token_info				create_info_token(char *path);
 
-uint32_t					parse_color(t_token t, t_token_info *i, t_col *c);
-uint32_t					parse_vector(t_token t, t_token_info *i, t_vect *v);
+uint32_t					parse_color(t_token *t, uint32_t tkn, t_col *c
+											, uint32_t *n);
+uint32_t					parse_vector(t_token *t, uint32_t tkn, t_vect *v
+											, uint32_t *n);
+
+uint32_t					parse_file(char *filename, t_env *env);
 
 uint32_t					parse_sphere(t_token t, t_token_info *i, t_env *e);
 uint32_t					parse_plane(t_token t, t_token_info *i, t_env *e);
 uint32_t					parse_light(t_token t, t_token_info *i, t_env *e);
 uint32_t					parse_cone(t_token t, t_token_info *i, t_env *e);
 uint32_t					parse_cam(t_token t, t_token_info *i, t_env *e);
+uint32_t					parse_number(t_token t, double *d, uint32_t *n);
 uint32_t					parse_cylinder(t_token t, t_token_info *i
-		, t_env *e);
-
+											, t_env *e);
+uint32_t					get_tokens(t_token_info *i, t_token t
+										, uint32_t *n, t_token *tk);
 int32_t						update_scope(t_token *t, t_token_info *i
 											, uint32_t token_number);
 

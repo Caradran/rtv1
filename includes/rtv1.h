@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 00:33:28 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/22 21:13:01 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/24 22:17:06 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,15 @@
 # define HEADER				C_DGR "[ " C_PRM NICK C_DGR " ] "
 # define HD					HEADER
 
-# define W_FAIL_HD			HD C_MGR "[ " C_ERR "-" C_MGR " ] " C_LGR
-# define W_INFO_HD			HD C_MGR "[ " C_INF "i" C_MGR " : "
-# define W_WARN_HD			HD C_MGR "[ " C_INF "!" C_MGR " : "
+# define W_FAIL_HD			HD C_MGR "[" C_ERR "-" C_MGR "]" C_DGR
+# define W_INFO_HD			HD C_MGR "[" C_INF "i" C_MGR "] "
+# define W_WARN_HD			HD C_MGR "[" C_INF "!" C_MGR "] "
 
-# define W_FAIL_DISP(code)	C_DGR " [" C_ORA code C_DGR "]" C_MGR "]: "
+# define W_FAIL_DISP(code)	C_DGR "[" C_ORA code C_DGR "]" C_DGR ": "
 
-# define W_ERROR(code, str)	W_FAIL_HD W_FAIL_DISP(code) C_LGR str C_LGR
-# define W_INFO(str)		W_INFO_HD C_LGR str C_LGR
-# define W_WARN(str)		W_WARN_HD C_LGR str C_LGR
-
-//# define W_OK				C_LGR " [" C_GRE "" C_LGR "]\n"
+# define STR_ERR(code, str)	W_FAIL_HD W_FAIL_DISP(code) C_LGR str C_LGR
+# define STR_INF(str)		W_INFO_HD C_LGR str C_LGR
+# define STR_WRN(str)		W_WARN_HD C_LGR str C_LGR
 
 /*
 ** =============================================================================
@@ -117,8 +115,7 @@
 ** =============================================================================
 */
 
-/*TODO*/
-
+t_env						*get_env(void);
 void						raycast_calculate_surface(t_env *env, uint32_t rpp);
 
 #endif

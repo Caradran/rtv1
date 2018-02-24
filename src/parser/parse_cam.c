@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 11:32:37 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/23 08:07:01 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/24 22:11:50 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,16 @@ uint32_t					parse_cam(t_token t, t_token_info *i, t_env *env)
 	t_vect					v[2];
 
 	if (get_tokens(i, t, token_number, tk) || token_number[0] < 13)
-	{
-		printf("%d < %d\n", token_number[0], 13);
 		return (PARSER_ERROR_SYNTAX);
-	}
 	n = ~0U;
 	ret = PARSER_VALID;
 	while (++n < token_number[0])
 	{
-		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str, "pos", 3))
+		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str
+					, "pos", 3))
 			ret = parse_vector(tk + n, 6, v, &n);
-		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str, "look_at", 3))
+		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str
+					, "look_at", 3))
 			ret = parse_vector(tk + n, 6, v + 1, &n);
 		if (ret != PARSER_VALID)
 			return (ret);
