@@ -1,1 +1,50 @@
-sphere(vector(0, 0, 0), 0.9, color(255, 34, 251))
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    test2.bgnouf                                       :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/02/24 23:53:05 by mbeilles          #+#    #+#              #
+#    Updated: 2018/02/24 23:53:07 by mbeilles         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+cone (
+	pos(5, 0, 0);
+	dir(0, 0, 1);
+	0.8;
+	color(1,1,1,1);
+)
+
+sphere (
+	pos(5, -0.5, 0);
+	0.4;
+	color(0, 1, 1, 0.5);
+)
+
+sphere (
+	pos(5, 0.5, 0);
+	0.4;
+	color(1, 1, 0, 0.5);
+)
+
+/*
+ *	Scene box
+ */
+
+plane (		6,		normal(-1,0,0),		color(1, 1, 1, 1)); // Front
+plane (		2,		normal(0.3, 1, 0),	color(1, 1, 1, 1)); // Left
+plane (		2,		normal(0.3, -1, 0),	color(1, 1, 1, 1)); // Right
+plane (		0.6,	normal(0, 0, -1),	color(1, 1, 1, 1)); // Top
+plane (		0.6,	normal(0, 0, 1),	color(1, 1, 1, 1)); // Down
+
+/*
+ *	Environnement
+ */
+
+cam (		pos(0, 0, 0),				look_at(1 , 0, 0));
+
+light(		pos(0, 0, 0),				color(1, 0, 0.8, 1));
+light(		pos(0, -0.5, 0),			color(0.8, 1, 0, 1));
+light(		pos(0, 0.5, 0),				color(0, 0.8, 1, 1));
