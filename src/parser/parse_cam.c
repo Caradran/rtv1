@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 11:32:37 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/24 22:11:50 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/24 22:30:42 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 uint32_t					parse_cam(t_token t, t_token_info *i, t_env *env)
 {
-	static uint32_t			token_number[3] = {0, 14, 6};
+	static uint32_t			token_number[3] = {0, 15, 6};
 	t_token					tk[15];
 	uint32_t				n;
 	uint32_t				ret;
