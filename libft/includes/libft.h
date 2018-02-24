@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 17:22:36 by mbeilles          #+#    #+#             */
-/*   Updated: 2017/11/17 03:19:28 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/24 22:24:34 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int				ft_isprint(int c);
 int				ft_isalnum(int c);
 int				ft_isspace(int c);
 int				ft_isset(int c, char *set);
-
 
 /*
 ** --- Memblock manipulation ---

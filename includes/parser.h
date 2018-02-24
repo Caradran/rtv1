@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 11:08:41 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/24 22:17:18 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/24 22:24:57 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ typedef union				u_toolkit_syntax
 	t_tk_pattern_match		pattern;
 	t_tk_type_match			token_type;
 	t_tk_len_match			token_len;
-	t_tk_regex_match		regex; //Disabled
+	t_tk_regex_match		regex;
 }							t_toolkit_syntax;
 
 #endif
