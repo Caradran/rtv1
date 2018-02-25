@@ -6,11 +6,12 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 21:22:38 by esuits            #+#    #+#             */
-/*   Updated: 2018/02/24 22:44:59 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/24 22:50:17 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include "keys.h"
 
 void					exit_rt(t_env *env)
 {
