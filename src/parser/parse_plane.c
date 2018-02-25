@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 11:31:33 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/25 03:44:00 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/25 03:49:38 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static inline t_formes		*create_plane(t_formes *next, t_plan plane)
 
 uint32_t					parse_plane(t_token t, t_token_info *i, t_env *env)
 {
-	static uint32_t			token_number[3] = {0, 18, 6};
+	static uint32_t			token_number[3] = {0, 17, 6};
 	t_token					tk[18];
 	uint32_t				n;
 	uint32_t				ret;
