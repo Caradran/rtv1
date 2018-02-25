@@ -1,0 +1,4 @@
+cam(pos(0,0,0)look_at(1,0,0));
+cone(pos(2,0,0), dir(0,0,1) color(0,1,0,0), 1.04719);
+light(color(1,1,1,1) pos(0,2,1));
+plane(normal(0.1, 0, 1) color(0.1,0,0.8,0) 0.6)
