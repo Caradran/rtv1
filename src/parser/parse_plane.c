@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 11:31:33 by mbeilles          #+#    #+#             */
-/*   Updated: 2018/02/24 22:07:43 by mbeilles         ###   ########.fr       */
+/*   Updated: 2018/02/25 03:44:00 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,42 +25,23 @@ static inline t_formes		*create_plane(t_formes *next, t_plan plane)
 	return (f);
 }
 
-static inline uint32_t		get_plane_tokens(t_token_info *i, t_token t
-												, uint32_t *n, t_token *tk)
-{
-	uint32_t				changes;
-
-	*n = 0;
-	changes = 0;
-	tk[0] = t;
-	while (++*n < 17)
-	{
-		tk[*n] = get_next_token(i);
-		if (tk[*n].state == LEXER_STATE_MAX)
-			break ;
-	}
-	if (update_scope(tk, i, *n) != 6)
-		return (PARSER_ERROR_SYNTAX);
-	return (PARSER_VALID);
-}
-
 /*
 ** 			plane(pos(0, 0, 0), 0.8, color(0.7, 0.3, 1, 1))
 */
 
 uint32_t					parse_plane(t_token t, t_token_info *i, t_env *env)
 {
+	static uint32_t			token_number[3] = {0, 18, 6};
 	t_token					tk[18];
-	uint32_t				token_number;
 	uint32_t				n;
 	uint32_t				ret;
 	t_formes				f;
 
-	if (get_plane_tokens(i, t, &token_number, tk) || token_number < 15)
+	if (get_tokens(i, t, token_number, tk) || token_number[0] < 15)
 		return (PARSER_ERROR_SYNTAX);
 	n = ~0U;
 	ret = PARSER_VALID;
-	while (++n < token_number)
+	while (++n < token_number[0])
 	{
 		if (tk[n].state == LEXER_STATE_OBJECT && ft_strnequ(tk[n].str
 					, "normal", 3))
