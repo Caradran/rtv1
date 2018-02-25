@@ -1,0 +1,10 @@
+cam(pos(0, 0, 0), look_at(10, 0, 0));
+
+sphere(pos(1, 0, 0.2), color(1, 0, 0, 0), 0.2);
+sphere(pos(1, 0.3, 0), color(0, 0, 1, 0.8), 0.2);
+sphere(pos(1, -0.3, 0), color(0, 1, 0, 0.3), 0.2);
+plane(normal(0,0,1), color(1,1,1,1), 0.5);
+
+light(color(1, 1, 1, 1)pos(0, 0, 3));
+light(color(1,1,1,1)pos(1 1.5 3));
+light(color(1,1,1,1)pos(1 -1.5 3));
